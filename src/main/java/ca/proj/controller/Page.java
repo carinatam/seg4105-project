@@ -2,7 +2,10 @@ package ca.proj.controller;
 
 public enum Page {
   ADMIN_DASHBOARD("admin-dashboard"), ADMIN_ADD_EMPLOYEE("admin-add-employee"), ADMIN_ADD_PATIENT("admin-add-patient"),
-  ADMIN_ADD_APPOINTMENT("admin-add-appointment"), REDIRECT("redirect:");
+  ADMIN_ADD_APPOINTMENT("admin-add-appointment"), REDIRECT("redirect:"),
+  RECEPTIONIST_DASHBOARD("receptionist-dashboard"), RECEPTIONIST_ADD_APPOINTMENT("receptionist-add-appointment"),
+  RECEPTIONIST_ADD_PATIENT("receptionist-add-patient"),
+  RECEPTIONIST_ADD_EMPLOYEE("receptionist-add-employee");
 
   public final String url;
 
