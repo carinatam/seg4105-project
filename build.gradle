@@ -2,11 +2,13 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id 'com.palantir.docker' version '0.26.0'
+	id 'com.palantir.docker-run' version '0.26.0'
 }
 
 group = 'ca.proj'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
@@ -19,13 +21,14 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql'
+	// runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -33,4 +36,21 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+String imageName = "${project.group}/${project.name}"
+docker {
+	dockerfile file('Dockerfile')
+	dependsOn(tasks.findByPath("build"))
+	name imageName
+	files bootJar.archiveFile.get()
+	buildArgs(['JAR_FILE': "${bootJar.archiveFileName.get()}"])
+}
+dockerRun {
+	name "${project.name}-container"
+	image imageName
+	ports '8081:8081'
+	env 'SPRING_PROFILES_ACTIVE': 'dev'
+	daemonize true
+	clean false
 }
