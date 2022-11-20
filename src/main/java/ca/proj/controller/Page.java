@@ -1,8 +1,8 @@
 package ca.proj.controller;
 
 public enum Page {
-  ADMIN_HOME("admin-index"), REDIRECT("redirect:"), ADMIN_MANAGE_EMPLOYEES("admin-manage-employees"),
-  ADMIN_VIEW_PATIENTS("admin-view-patients"), ADMIN_MANAGE_PATIENTS("admin-manage-patients");
+  ADMIN_DASHBOARD("admin-dashboard"), ADMIN_ADD_EMPLOYEE("admin-add-employee"), ADMIN_ADD_PATIENT("admin-add-patient"),
+  ADMIN_ADD_APPOINTMENT("admin-add-appointment"), REDIRECT("redirect:");
 
   public final String url;
 

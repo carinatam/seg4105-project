@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Patient Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <div class="d-flex align-items-start container-fluid h-100">
+      <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="v-pills-employees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-employees" type="button" role="tab" aria-controls="v-pills-employees" aria-selected="true">Employees</button>
+        <button class="nav-link" id="v-pills-patients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-patients" type="button" role="tab" aria-controls="v-pills-patients" aria-selected="false">Patients</button>
+        <button class="nav-link" id="v-pills-appointments-tab" data-bs-toggle="pill" data-bs-target="#v-pills-appointments" type="button" role="tab" aria-controls="v-pills-appointments" aria-selected="false">Appointments</button>
+        <button class="nav-link" id="v-pills-search-emp-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search-emp" type="button" role="tab" aria-controls="v-pills-search-emp" aria-selected="false">Search Employees</button>
+        <button class="nav-link" id="v-pills-search-pat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search-pat" type="button" role="tab" aria-controls="v-pills-search-pat" aria-selected="false">Search Patients</button>
+      </div>
+      <div class="tab-content" id="v-pills-tabContent">
+        <div th:replace="fragments/employees-table :: employees-table" class="tab-pane fade show active" id="v-pills-employees" role="tabpanel" aria-labelledby="v-pills-employees-tab" tabindex="0"></div>
+        <div th:replace="fragments/patients-table :: patients-table" class="tab-pane fade" id="v-pills-patients" role="tabpanel" aria-labelledby="v-pills-patients-tab" tabindex="0"></div>
+        <div th:replace="fragments/appointments-table :: appointments-table" class="tab-pane fade" id="v-pills-appointments" role="tabpanel" aria-labelledby="v-pills-appointments-tab" tabindex="0"></div>
+        <div th:replace="fragments/search-employee :: search-employee" class="tab-pane fade" id="v-pills-search-emp" role="tabpanel" aria-labelledby="v-pills-search-emp-tab" tabindex="0"></div>
+        <div th:replace="fragments/search-patient :: search-patient" class="tab-pane fade" id="v-pills-search-pat" role="tabpanel" aria-labelledby="v-pills-search-pat-tab" tabindex="0"></div>
+      </div>
+    </div>
+  </body>
+</html>

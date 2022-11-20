@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Patient Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center">Add Appointment</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <form action="#" method="POST">
+            <div class="mb-3">
+              <label for="patient" class="form-label">Patient</label>
+              <select class="form-select" id="patient">
+                <option>John Doe</option>
+                <option>John Doe</option>
+                <option>John Doe</option>
+                <option>John Doe</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="doctor" class="form-label">Doctor</label>
+              <select class="form-select" id="doctor">
+                <option>John Doe</option>
+                <option>John Doe</option>
+                <option>John Doe</option>
+                <option>John Doe</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="date" class="form-label">Date</label>
+              <input type="date" class="form-control" id="date" />
+            </div>
+            <div class="mb-3">
+              <label for="time" class="form-label">Time</label>
+              <input type="time" class="form-control" id="time" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

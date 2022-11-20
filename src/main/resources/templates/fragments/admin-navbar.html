@@ -6,17 +6,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <!-- tabs: add employee, add patient, add appointment -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/admin/}">Home</a>
+          <a class="nav-link active" aria-current="page" th:href="@{/admin/}">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/manage-employees}">Manage Employees</a>
+          <a class="nav-link" th:href="@{/admin/add-employee-page}">Add Employee</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/view-patients}">View Patients</a>
+          <a class="nav-link" th:href="@{/admin/add-patient-page}">Add Patient</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/manage-patients}">Manage Patient Appointments + Payments</a>
+          <a class="nav-link" th:href="@{/admin/add-appointment-page}">Add Appointment</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/logout}">Logout</a>

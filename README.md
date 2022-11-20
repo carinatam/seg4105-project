@@ -5,23 +5,30 @@ To run, enter `./gradlew bootRun` in terminal and navigate to `localhost:8080`.
 
 ## Pages to be implemented
 - Main Admin
-    - home
-    - Manage employees (create receptionists, doctors, patients)
-    - View patient files
-    - Manage patient appointments + payments
+  - Manage employees
+  - Manage patients
+  - Add appointment for patient
+  - Add employee
+  - Add patient
+  - View appointments
+  - View one patient
+  - View one employee
 - Receptionist
-    - home
-    - Create patients, doctors
-    - Manage patient appointments
-    - Manage patient payments
-- Doctor
-    - Home
-    - View assigned patients information
-    - View upcoming appointments
+  - Manage employees (can't create receptionists or admin and can't see salary of everyone)
+  - Manage patients
+  - Add appointment for patient
+  - Add employee
+  - Add patient
+  - View appointments
+  - View one patient
+  - View one employee
+- Doctor/employee
+  - View assigned patients info
+  - View upcoming appointments
+  - View personal information
 - Patient
-    - Home
-    - View upcoming appointments
-    - Book appointment from list of times
-    - View personal information
+  - View upcoming appointments
+  - Book appointment
+  - View personal information
 - Guest
-    - Login
+  - Login
