@@ -1,0 +1,24 @@
+<!-- fragment for doctor's personal information -->
+<!-- Path: src\main\resources\templates\fragments\doctor-personal-info.html -->
+<div th:fragment="doctor-personal-info">
+  <!-- dummy info: id, first name, last name, email, phone, role -->
+  <!-- not a table -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Personal Information</h5>
+            <p class="card-text"><span class="fw-bold">ID:</span> 1</p>
+            <p class="card-text"><span class="fw-bold">First Name:</span> John</p>
+            <p class="card-text"><span class="fw-bold">Last Name:</span> Doe</p>
+            <p class="card-text"><span class="fw-bold">Email:</span> <a href="mailto:[...]"></a></p>
+            <p class="card-text"><span class="fw-bold">Phone:</span> <a href="tel:[...]"></a></p>
+            <p class="card-text"><span class="fw-bold">Role:</span> Doctor</p>
+            <a href="#" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
