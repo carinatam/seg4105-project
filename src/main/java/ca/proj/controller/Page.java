@@ -5,7 +5,8 @@ public enum Page {
   ADMIN_ADD_APPOINTMENT("admin-add-appointment"), REDIRECT("redirect:"),
   RECEPTIONIST_DASHBOARD("receptionist-dashboard"), RECEPTIONIST_ADD_APPOINTMENT("receptionist-add-appointment"),
   RECEPTIONIST_ADD_PATIENT("receptionist-add-patient"),
-  RECEPTIONIST_ADD_EMPLOYEE("receptionist-add-employee"), DOCTOR_DASHBOARD("doctor-dashboard");
+  RECEPTIONIST_ADD_EMPLOYEE("receptionist-add-employee"), DOCTOR_DASHBOARD("doctor-dashboard"),
+  PATIENT_DASHBOARD("patient-dashboard"), PATIENT_ADD_APPOINTMENT("patient-add-appointment");
 
   public final String url;
 
