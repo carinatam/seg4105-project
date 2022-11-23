@@ -14,10 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: Push the Docker image
-      run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push my-image-name:$(date +%s)
-
+    - docker/setup-qemu-action@v2
+    - docker/setup-buildx-action@v2
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: user/app:latest
