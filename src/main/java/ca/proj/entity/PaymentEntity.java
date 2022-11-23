@@ -1,4 +1,4 @@
-package ca.proj.entities;
+package ca.proj.entity;
 
 import java.sql.Date;
 
@@ -12,18 +12,18 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "prescription")
+@Table(name = "payment")
 @Data
-public class PrescriptionEntity {
+public class PaymentEntity {
   @Id
-  @Column(name = "prescriptionID")
-  private int prescriptionID;
+  @Column(name = "paymentID")
+  private int paymentID;
 
-  @Column(name = "prescriptionDate")
-  private Date prescriptionDate;
+  @Column(name = "paymentDate")
+  private Date paymentDate;
 
-  @Column(name = "prescription")
-  private String prescription;
+  @Column(name = "paymentAmount")
+  private double paymentAmount;
 
   @ManyToOne
   @JoinColumn(name = "appointmentID")

@@ -1,4 +1,4 @@
-package ca.proj.entities;
+package ca.proj.values;
 
 public enum AppointmentStatus {
   PENDING("Pending"),

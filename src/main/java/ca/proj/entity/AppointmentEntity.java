@@ -1,4 +1,4 @@
-package ca.proj.entities;
+package ca.proj.entity;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import ca.proj.values.AppointmentStatus;
 import lombok.Data;
 
 @Entity
