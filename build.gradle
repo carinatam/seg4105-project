@@ -20,18 +20,31 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	MAPSTRUCT_VERSION = '1.4.1.Final'
+	MAPSTRUCT_BINDING_VERSION = '0.2.0'
+}
+
 dependencies {
-	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	compileOnly 'org.projectlombok:lombok'
-	// runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// easier/faster DTOs
+  annotationProcessor "org.mapstruct:mapstruct-processor:$MAPSTRUCT_VERSION"
+  implementation "org.mapstruct:mapstruct:$MAPSTRUCT_VERSION"
+  testAnnotationProcessor "org.mapstruct:mapstruct-processor:$MAPSTRUCT_VERSION"
+
+  // required for binding mapstruct and lombok together
+  annotationProcessor "org.projectlombok:lombok-mapstruct-binding:$MAPSTRUCT_BINDING_VERSION"
 }
 
 tasks.named('test') {
