@@ -19,16 +19,16 @@ import lombok.Data;
 @Table(name = "patient")
 @Data
 public class PatientEntity {
-  @Column(name = "firstName")
+  @Column(name = "firstname")
   private String firstName;
 
-  @Column(name = "lastName")
+  @Column(name = "lastname")
   private String lastName;
 
   @Column(name = "gender")
   private String gender;
 
-  @Column(name = "dateOfBirth")
+  @Column(name = "dateofbirth")
   private Date dateOfBirth;
 
   @Column(name = "address")

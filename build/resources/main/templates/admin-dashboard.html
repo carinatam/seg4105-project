@@ -19,9 +19,9 @@
         <button class="nav-link" id="v-pills-search-pat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search-pat" type="button" role="tab" aria-controls="v-pills-search-pat" aria-selected="false">Search Patients</button>
       </div>
       <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-employees" role="tabpanel" aria-labelledby="v-pills-employees-tab" tabindex="0"><div th:replace="fragments/employees-table :: employees-table"></div></div>
-        <div class="tab-pane fade" id="v-pills-patients" role="tabpanel" aria-labelledby="v-pills-patients-tab" tabindex="0"><div th:replace="fragments/patients-table :: patients-table"></div></div>
-        <div class="tab-pane fade" id="v-pills-appointments" role="tabpanel" aria-labelledby="v-pills-appointments-tab" tabindex="0"><div th:replace="fragments/appointments-table :: appointments-table"></div></div>
+        <div class="tab-pane fade show active" id="v-pills-employees" role="tabpanel" aria-labelledby="v-pills-employees-tab" tabindex="0"><div th:replace="fragments/employees-table :: employees-table(${employees})"></div></div>
+        <div class="tab-pane fade" id="v-pills-patients" role="tabpanel" aria-labelledby="v-pills-patients-tab" tabindex="0"><div th:replace="fragments/patients-table :: patients-table(${patients})"></div></div>
+        <div class="tab-pane fade" id="v-pills-appointments" role="tabpanel" aria-labelledby="v-pills-appointments-tab" tabindex="0"><div th:replace="fragments/appointments-table :: appointments-table(${appointments})"></div></div>
         <div class="tab-pane fade" id="v-pills-search-emp" role="tabpanel" aria-labelledby="v-pills-search-emp-tab" tabindex="0"><div th:replace="fragments/search-employee :: search-employee"></div></div>
         <div class="tab-pane fade" id="v-pills-search-pat" role="tabpanel" aria-labelledby="v-pills-search-pat-tab" tabindex="0"><div th:replace="fragments/search-patient :: search-patient"></div></div>
       </div>

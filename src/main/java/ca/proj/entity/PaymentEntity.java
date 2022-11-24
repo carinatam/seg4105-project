@@ -1,6 +1,7 @@
 package ca.proj.entity;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,16 +17,19 @@ import lombok.Data;
 @Data
 public class PaymentEntity {
   @Id
-  @Column(name = "paymentID")
+  @Column(name = "paymentid")
   private int paymentID;
 
-  @Column(name = "paymentDate")
+  @Column(name = "paymentdate")
   private Date paymentDate;
 
-  @Column(name = "paymentAmount")
+  @Column(name = "paymentamount")
   private double paymentAmount;
 
+  @Column(name = "paymenttime")
+  private Time paymentTime;
+
   @ManyToOne
-  @JoinColumn(name = "appointmentID")
+  @JoinColumn(name = "appointmentid")
   private AppointmentEntity appointment;
 }

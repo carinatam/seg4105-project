@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,16 +22,16 @@ import lombok.Data;
 @Table(name = "employee")
 @Data
 public class EmployeeEntity {
-  @Column(name = "firstName")
+  @Column(name = "firstname")
   private String firstName;
 
-  @Column(name = "lastName")
+  @Column(name = "lastname")
   private String lastName;
 
   @Column(name = "gender")
   private String gender;
 
-  @Column(name = "dateOfBirth")
+  @Column(name = "dateofbirth")
   private Date dateOfBirth;
 
   @Column(name = "address")
@@ -45,6 +47,7 @@ public class EmployeeEntity {
   private int salary;
 
   @Column(name = "role")
+  @Enumerated(EnumType.STRING)
   private EmployeeRole role;
 
   @Id

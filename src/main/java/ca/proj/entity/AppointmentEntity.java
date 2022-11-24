@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,24 +22,25 @@ import lombok.Data;
 @Data
 public class AppointmentEntity {
   @Id
-  @Column(name = "appointmentID")
+  @Column(name = "appointmentid")
   private int appointmentID;
 
-  @Column(name = "appointmentDate")
+  @Column(name = "appointmentdate")
   private Date appointmentDate;
 
-  @Column(name = "appointmentTime")
+  @Column(name = "appointmenttime")
   private Time appointmentTime;
 
-  @Column(name = "appointmentStatus")
+  @Column(name = "appointmentstatus")
+  @Enumerated(EnumType.STRING)
   private AppointmentStatus appointmentStatus;
 
   @ManyToOne
-  @JoinColumn(name = "employeeUsername")
+  @JoinColumn(name = "employeeusername")
   private EmployeeEntity employee;
 
   @ManyToOne
-  @JoinColumn(name = "patientUsername")
+  @JoinColumn(name = "patientusername")
   private PatientEntity patient;
 
   @OneToMany(mappedBy = "appointment")
