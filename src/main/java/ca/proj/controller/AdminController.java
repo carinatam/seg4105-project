@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ca.proj.config.security.CustomUserDetails;
 import ca.proj.dtos.EmployeeDTO;
+import ca.proj.dtos.PatientDTO;
 import ca.proj.dtos.UserDTO;
 import ca.proj.service.AdminService;
 import ca.proj.service.EmployeeService;
+import ca.proj.service.PatientService;
 import ca.proj.service.UserService;
 
 @Controller
@@ -26,6 +28,7 @@ public class AdminController {
   @Autowired private AdminService adminService;
   @Autowired private UserService userService;
   @Autowired private EmployeeService employeeService;
+  @Autowired private PatientService patientService;
 
   @GetMapping("/")
   public String getAdminDashboard(Model model, @AuthenticationPrincipal CustomUserDetails userDetails, Authentication authResult)  {
@@ -44,7 +47,9 @@ public class AdminController {
   }
 
   @GetMapping("/add-patient-page")
-  public String getAdminAddPatient() {
+  public String getAdminAddPatient(Model model, @AuthenticationPrincipal CustomUserDetails userDetails, Authentication authResult)  {
+    model.addAttribute("userDTO", new UserDTO());
+    model.addAttribute("patientDTO", new PatientDTO());
     return Page.ADMIN_ADD_PATIENT.getUrl();
   }
 
@@ -55,7 +60,6 @@ public class AdminController {
 
   @PostMapping("/add-employee")
   public String addEmployee(@Validated @ModelAttribute("userDTO") UserDTO userDTO, @Validated @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO, BindingResult result, Model model) {
-    // validate fields first
     boolean error = false;
     if(userDTO.getUsername().isBlank()) {
       model.addAttribute("nullUsername", "Please enter a username.");
@@ -108,8 +112,64 @@ public class AdminController {
     employeeService.createEmployee(employeeDTO);
 
     model.addAttribute("addEmployeeSuccess", true);
+    model.addAttribute("userDTO", new UserDTO());
+    model.addAttribute("employeeDTO", new EmployeeDTO());
     return Page.ADMIN_ADD_EMPLOYEE.getUrl();
   }
 
+  @PostMapping("/add-patient")
+  public String addPatient(@Validated @ModelAttribute("userDTO") UserDTO userDTO, @Validated @ModelAttribute("patientDTO") PatientDTO patientDTO, BindingResult result, Model model) {
+    boolean error = false;
+    if(userDTO.getUsername().isBlank()) {
+      model.addAttribute("nullUsername", "Please enter a username.");
+      error = true;
+    }
+    else if(userService.userExists(userDTO.getUsername())) {
+      model.addAttribute("usernameExists", "This username already exists.");
+      error = true;
+    }
+    if(userDTO.getPassword().isBlank()) {
+      model.addAttribute("nullPassword", "Please enter a password.");
+      error = true;
+    }
+    if(patientDTO.getFirstName().isBlank()) {
+      model.addAttribute("nullFirstName", "Please enter a first name.");
+      error = true;
+    }
+    if(patientDTO.getLastName().isBlank()) {
+      model.addAttribute("nullLastName", "Please enter a last name.");
+      error = true;
+    }
+    if(patientDTO.getDateOfBirth() == null) {
+      model.addAttribute("nullDateOfBirth", "Please enter a date of birth.");
+      error = true;
+    }
+    if(patientDTO.getAddress().isBlank()) {
+      model.addAttribute("nullAddress", "Please enter an address.");
+      error = true;
+    }
+    if(patientDTO.getPhone().isBlank()) {
+      model.addAttribute("nullPhone", "Please enter a phone number.");
+      error = true;
+    }
+    if(patientDTO.getEmail().isBlank()) {
+      model.addAttribute("nullEmail", "Please enter an email.");
+      error = true;
+    }
 
+    if(error) {
+      model.addAttribute("userDTO", userDTO);
+      model.addAttribute("patientDTO", patientDTO);
+      return Page.ADMIN_ADD_PATIENT.getUrl();
+    }
+    userService.createUser(userDTO);
+    patientDTO.setUsername(userDTO.getUsername());
+    patientService.createPatient(patientDTO);
+
+    model.addAttribute("addPatientSuccess", true);
+    // reset form
+    model.addAttribute("userDTO", new UserDTO());
+    model.addAttribute("patientDTO", new PatientDTO());
+    return Page.ADMIN_ADD_PATIENT.getUrl();
+  }
 }
