@@ -1,11 +1,9 @@
-<!-- no thymeleaf bootstrap table of appointments with pagination -->
 <div th:fragment="appointments-table(appointments)">
   <div class="container-fluid">
     <div class="col-12">
       <table class="table table-striped">
         <thead>
           <tr>
-            <!-- columns: ID, Date, Time, Status, Employee Username, Patient Username -->
             <th scope="col">ID</th>
             <th scope="col">Date</th>
             <th scope="col">Time</th>
@@ -16,9 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- iterate over appointments -->
           <tr th:each="appointment : ${appointments}">
-            <!-- display appointment's data -->
             <td th:text="${appointment.appointmentID}"></td>
             <td th:text="${appointment.appointmentDate}"></td>
             <td th:text="${appointment.appointmentTime}"></td>
@@ -26,9 +22,7 @@
             <td th:text="${appointment.employeeUsername}"></td>
             <td th:text="${appointment.patientUsername}"></td>
             <td>
-              <!-- edit button -->
               <a class="btn btn-primary btn-sm">Edit</a>
-              <!-- delete button -->
               <a class="btn btn-danger btn-sm">Delete</a>
             </td>
           </tr>

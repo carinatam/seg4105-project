@@ -3,16 +3,16 @@ package ca.proj.entity;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import ca.proj.values.EmployeeRole;
@@ -51,11 +51,11 @@ public class EmployeeEntity {
   private EmployeeRole role;
 
   @Id
+  @Column(name = "username")
   private String username;
 
-  @MapsId
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "username")
+  @PrimaryKeyJoinColumn
+  @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   private UserEntity user;
 
   @OneToMany(mappedBy = "employee")

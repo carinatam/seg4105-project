@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import ca.proj.entity.EmployeeEntity;
 
 @Repository
-public interface IEmployeeRepository extends JpaRepository<EmployeeEntity, Integer> {
+public interface IEmployeeRepository extends JpaRepository<EmployeeEntity, String> {
   
   @Query(value = "SELECT COUNT(1) FROM employee WHERE username = :username AND role = 'Receptionist'", nativeQuery = true)
   BigInteger isReceptionist(@Param("username") String username);

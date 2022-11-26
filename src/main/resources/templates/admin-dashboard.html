@@ -15,15 +15,13 @@
         <button class="nav-link active" id="v-pills-employees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-employees" type="button" role="tab" aria-controls="v-pills-employees" aria-selected="true">Employees</button>
         <button class="nav-link" id="v-pills-patients-tab" data-bs-toggle="pill" data-bs-target="#v-pills-patients" type="button" role="tab" aria-controls="v-pills-patients" aria-selected="false">Patients</button>
         <button class="nav-link" id="v-pills-appointments-tab" data-bs-toggle="pill" data-bs-target="#v-pills-appointments" type="button" role="tab" aria-controls="v-pills-appointments" aria-selected="false">Appointments</button>
-        <button class="nav-link" id="v-pills-search-emp-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search-emp" type="button" role="tab" aria-controls="v-pills-search-emp" aria-selected="false">Search Employees</button>
-        <button class="nav-link" id="v-pills-search-pat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search-pat" type="button" role="tab" aria-controls="v-pills-search-pat" aria-selected="false">Search Patients</button>
+        <button class="nav-link" id="v-pills-payments-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payments" type="button" role="tab" aria-controls="v-pills-payments" aria-selected="false">Payments</button>
       </div>
       <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-employees" role="tabpanel" aria-labelledby="v-pills-employees-tab" tabindex="0"><div th:replace="fragments/employees-table :: employees-table(${employees})"></div></div>
         <div class="tab-pane fade" id="v-pills-patients" role="tabpanel" aria-labelledby="v-pills-patients-tab" tabindex="0"><div th:replace="fragments/patients-table :: patients-table(${patients})"></div></div>
         <div class="tab-pane fade" id="v-pills-appointments" role="tabpanel" aria-labelledby="v-pills-appointments-tab" tabindex="0"><div th:replace="fragments/appointments-table :: appointments-table(${appointments})"></div></div>
-        <div class="tab-pane fade" id="v-pills-search-emp" role="tabpanel" aria-labelledby="v-pills-search-emp-tab" tabindex="0"><div th:replace="fragments/search-employee :: search-employee"></div></div>
-        <div class="tab-pane fade" id="v-pills-search-pat" role="tabpanel" aria-labelledby="v-pills-search-pat-tab" tabindex="0"><div th:replace="fragments/search-patient :: search-patient"></div></div>
+        <div class="tab-pane fade" id="v-pills-payments" role="tabpanel" aria-labelledby="v-pills-payments-tab" tabindex="0"><div th:replace="fragments/payments-table :: payments-table(${payments})"></div></div>
       </div>
     </div>
   </body>

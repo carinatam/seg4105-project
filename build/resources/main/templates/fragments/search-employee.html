@@ -1,14 +1,26 @@
 <!-- fragment to seach for employee static -->
 <div th:fragment="search-employee">
   <!-- search bar -->
-  <div class="container-fluid">
+  <!-- search for employee by username -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form action="#" th:action="@{/admin/search-employee}" method="post">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search for employee by username" aria-label="Search for employee by username" aria-describedby="button-addon2" name="username">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  <!-- <div class="container-fluid">
     <div class="col-12">
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search employee...</button>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search username..." aria-label="Search" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search employee</button>
       </form>
     </div>
-    <!-- search employee results -->
+    search employee results
     <div class="col-12">
       <table class="table table-striped">
         <thead>
@@ -21,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- dummy info -->
+          dummy info
           <tr>
             <th scope="row">1</th>
             <td>John Doe</td>
@@ -52,9 +64,9 @@
               <a href="#" class="btn btn-danger btn-sm">Delete</a>
             </td>
           </tr>
-          <!-- enough -->
+          enough
         </tbody>
       </table>
     </div>
-  </div>
+  </div> -->
 </div>
