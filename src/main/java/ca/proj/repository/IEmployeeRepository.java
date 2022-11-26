@@ -1,6 +1,7 @@
 package ca.proj.repository;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,7 @@ public interface IEmployeeRepository extends JpaRepository<EmployeeEntity, Strin
 
   @Query(value = "SELECT COUNT(1) FROM employee WHERE username = :username AND role = 'Doctor'", nativeQuery = true)
   BigInteger isDoctor(@Param("username") String username);
+
+  @Query(value = "SELECT username FROM employee WHERE role = 'Doctor'", nativeQuery = true)
+  List<String> findAllDoctorsUsernames();
 }

@@ -1,5 +1,7 @@
 package ca.proj.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,10 @@ public class EmployeeService {
     );
     employeeRepository.save(newEmployee);
     return employee;
+  }
+
+  public List<String> getAllDoctorsUsernames() {
+    return employeeRepository.findAllDoctorsUsernames();
   }
 
   

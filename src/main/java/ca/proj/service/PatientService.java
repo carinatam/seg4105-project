@@ -1,5 +1,7 @@
 package ca.proj.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,9 @@ public class PatientService {
     );
     patientRepository.save(newPatient);
     return patient;
+  }
+
+  public List<String> getAllPatientsUsernames() {
+    return patientRepository.findAllPatientsUsernames();
   }
 }

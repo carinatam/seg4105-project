@@ -58,7 +58,7 @@ public class EmployeeEntity {
   @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   private UserEntity user;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<AppointmentEntity> appointments;
 
   @OneToMany(mappedBy = "doctor")

@@ -1,5 +1,9 @@
 package ca.proj.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,10 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ca.proj.config.security.CustomUserDetails;
+import ca.proj.dtos.AppointmentDTO;
 import ca.proj.dtos.EmployeeDTO;
 import ca.proj.dtos.PatientDTO;
 import ca.proj.dtos.UserDTO;
 import ca.proj.service.AdminService;
+import ca.proj.service.AppointmentService;
 import ca.proj.service.EmployeeService;
 import ca.proj.service.PatientService;
 import ca.proj.service.UserService;
@@ -29,6 +35,7 @@ public class AdminController {
   @Autowired private UserService userService;
   @Autowired private EmployeeService employeeService;
   @Autowired private PatientService patientService;
+  @Autowired private AppointmentService appointmentService;
 
   @GetMapping("/")
   public String getAdminDashboard(Model model, @AuthenticationPrincipal CustomUserDetails userDetails, Authentication authResult)  {
@@ -54,7 +61,10 @@ public class AdminController {
   }
 
   @GetMapping("/add-appointment-page")
-  public String getAdminAddAppointment() {
+  public String getAdminAddAppointment(Model model, @AuthenticationPrincipal CustomUserDetails userDetails, Authentication authResult) {
+    model.addAttribute("appointmentDTO", new AppointmentDTO());
+    model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
+    model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
     return Page.ADMIN_ADD_APPOINTMENT.getUrl();
   }
 
@@ -171,5 +181,42 @@ public class AdminController {
     model.addAttribute("userDTO", new UserDTO());
     model.addAttribute("patientDTO", new PatientDTO());
     return Page.ADMIN_ADD_PATIENT.getUrl();
+  }
+
+  @PostMapping("/add-appointment")
+  public String addAppointment(@Validated @ModelAttribute("appointmentDTO") AppointmentDTO appointmentDTO, BindingResult result, Model model) {
+    boolean error = false;
+    if(appointmentDTO.getAppointmentDate() == null) {
+      model.addAttribute("nullDate", "Please select a date.");
+      error = true;
+    }
+    else {
+      LocalDate date = appointmentDTO.getAppointmentDate().toLocalDate();
+      if(date.isBefore(LocalDate.now())) {
+        model.addAttribute("pastDate", "Please select a date in the future.");
+        error = true;
+      }
+    }
+    System.out.println("time: " + appointmentDTO.getAppointmentTime());
+    
+    if(appointmentDTO.getAppointmentTime() == null) {
+      model.addAttribute("nullTime", "Please select a time.");
+      error = true;
+    }
+
+    if(error) {
+      model.addAttribute("appointmentDTO", appointmentDTO);
+      model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
+      model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
+      return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+    }
+    appointmentService.createAppointment(appointmentDTO);
+
+    model.addAttribute("addAppointmentSuccess", true);
+    // reset form
+    model.addAttribute("appointmentDTO", new AppointmentDTO());
+    model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
+    model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
+    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
   }
 }

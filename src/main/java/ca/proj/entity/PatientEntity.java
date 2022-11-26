@@ -48,7 +48,7 @@ public class PatientEntity {
   @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   private UserEntity user;
 
-  @OneToMany(mappedBy = "patient")
+  @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<AppointmentEntity> appointments;
 
 }
