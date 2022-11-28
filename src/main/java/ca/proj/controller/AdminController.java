@@ -67,6 +67,15 @@ public class AdminController {
     return Page.ADMIN_ADD_PATIENT.getUrl();
   }
 
+  @GetMapping("/appointments/{appointmentID}")
+  public String getAdminViewAppointment(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
+      Authentication authResult, @PathVariable int appointmentID) {
+    model.addAttribute("appointment", appointmentService.getAppointment(appointmentID));
+    model.addAttribute("prescriptions", appointmentService.getPrescriptions(appointmentID));
+    model.addAttribute("payments", appointmentService.getPayments(appointmentID));
+    return Page.ADMIN_VIEW_APPOINTMENT.getUrl();
+  }
+
   @GetMapping("/add-appointment-page")
   public String getAdminAddAppointment(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
       Authentication authResult) {

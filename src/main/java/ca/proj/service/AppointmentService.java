@@ -6,17 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ca.proj.dtos.AppointmentDTO;
+import ca.proj.dtos.PaymentDTO;
+import ca.proj.dtos.PrescriptionDTO;
 import ca.proj.entity.AppointmentEntity;
 import ca.proj.mapper.AppointmentMapper;
+import ca.proj.mapper.PaymentMapper;
+import ca.proj.mapper.PrescriptionMapper;
 import ca.proj.repository.IAppointmentRepository;
 import ca.proj.repository.IEmployeeRepository;
 import ca.proj.repository.IPatientRepository;
+import ca.proj.repository.IPaymentRepository;
+import ca.proj.repository.IPrescriptionRepository;
 
 @Service
 public class AppointmentService {
   @Autowired IAppointmentRepository appointmentRepository;
   @Autowired IEmployeeRepository employeeRepository;
   @Autowired IPatientRepository patientRepository;
+  @Autowired IPrescriptionRepository prescriptionRepository;
+  @Autowired IPaymentRepository paymentRepository;
 
   public AppointmentDTO createAppointment(AppointmentDTO appointment) {
     AppointmentEntity newAppointment = AppointmentMapper.INSTANCE.toEntity(appointment);
@@ -49,6 +57,14 @@ public class AppointmentService {
     newAppointment.setPatient(patientRepository.findById(appointment.getPatientUsername()).orElseThrow(() -> new RuntimeException("Patient not found")));
     appointmentRepository.save(newAppointment);
     return appointment;
+  }
+
+  public List<PrescriptionDTO> getPrescriptions(int appointmentID) {
+    return PrescriptionMapper.INSTANCE.toDto(prescriptionRepository.findAllByAppointmentId(appointmentID));
+  }
+
+  public List<PaymentDTO> getPayments(int appointmentID) {
+    return PaymentMapper.INSTANCE.toDto(paymentRepository.findAllByAppointmentId(appointmentID));
   }
   
 }

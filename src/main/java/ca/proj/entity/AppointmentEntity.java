@@ -1,6 +1,7 @@
 package ca.proj.entity;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -47,8 +48,8 @@ public class AppointmentEntity {
   private PatientEntity patient;
 
   @OneToMany(mappedBy = "appointment")
-  private Set<PrescriptionEntity> prescriptions;
+  private Set<PrescriptionEntity> prescriptions = new HashSet<>();
 
   @OneToMany(mappedBy = "appointment")
-  private Set<PaymentEntity> payments;
+  private Set<PaymentEntity> payments = new HashSet<>();
 }
