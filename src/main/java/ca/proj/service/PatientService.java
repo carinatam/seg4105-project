@@ -27,4 +27,8 @@ public class PatientService {
   public List<String> getAllPatientsUsernames() {
     return patientRepository.findAllPatientsUsernames();
   }
+
+  public void deletePatient(String patientUsername) {
+    patientRepository.deleteById(patientUsername);
+  }
 }

@@ -23,7 +23,8 @@
             <td th:text="${appointment.patientUsername}"></td>
             <td>
               <a class="btn btn-primary btn-sm">Edit</a>
-              <a class="btn btn-danger btn-sm">Delete</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${appointment.appointmentID}').submit()|">Delete</a>
+              <form th:id="${appointment.appointmentID}" th:action="@{|/admin/deleteAppointment/${appointment.appointmentID}|}" method="POST"></form>
             </td>
           </tr>
         </tbody>

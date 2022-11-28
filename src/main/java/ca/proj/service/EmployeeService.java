@@ -28,5 +28,9 @@ public class EmployeeService {
     return employeeRepository.findAllDoctorsUsernames();
   }
 
+  public void deleteEmployee(String employeeUsername) {
+    employeeRepository.deleteById(employeeUsername);
+  }
+
   
 }

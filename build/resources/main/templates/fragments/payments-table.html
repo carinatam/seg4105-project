@@ -22,7 +22,8 @@
             <td th:text="${payment.appointmentID}"></td>
             <td>
               <a class="btn btn-primary btn-sm">Edit</a>
-              <a class="btn btn-danger btn-sm">Delete</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${payment.paymentID}').submit()|">Delete</a>
+              <form th:id="${payment.paymentID}" th:action="@{|/admin/deletePayment/${payment.paymentID}|}" method="POST"></form>
             </td>
           </tr>
         </tbody>

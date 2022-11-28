@@ -33,7 +33,8 @@
               <!-- edit button -->
               <a class="btn btn-primary btn-sm">Edit</a>
               <!-- delete button -->
-              <a class="btn btn-danger btn-sm">Delete</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
+              <form th:id="${patient.username}" th:action="@{|/admin/deletePatient/${patient.username}|}" method="POST"></form>
             </td>
           </tr>
         </tbody>
