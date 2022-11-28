@@ -1,5 +1,7 @@
 package ca.proj.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,27 @@ public class AppointmentService {
 
   public void deleteAppointment(int appointmentId) {
     appointmentRepository.deleteById(appointmentId);
+  }
+
+  public List<AppointmentDTO> getEmployeeAppointments(String employeeUsername) {
+    return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findAllByEmployeeUsername(employeeUsername));
+  }
+
+  public List<AppointmentDTO> getPatientAppointments(String patientUsername) {
+    return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findAllByPatientUsername(patientUsername));
+  }
+
+  public AppointmentDTO getAppointment(int appointmentId) {
+    return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findById(appointmentId).orElseThrow(() -> new RuntimeException("Appointment not found")));
+  }
+
+  // update appointment
+  public AppointmentDTO updateAppointment(AppointmentDTO appointment) {
+    AppointmentEntity newAppointment = AppointmentMapper.INSTANCE.toEntity(appointment);
+    newAppointment.setEmployee(employeeRepository.findById(appointment.getEmployeeUsername()).orElseThrow(() -> new RuntimeException("Employee not found")));
+    newAppointment.setPatient(patientRepository.findById(appointment.getPatientUsername()).orElseThrow(() -> new RuntimeException("Patient not found")));
+    appointmentRepository.save(newAppointment);
+    return appointment;
   }
   
 }

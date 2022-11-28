@@ -32,5 +32,9 @@ public class EmployeeService {
     employeeRepository.deleteById(employeeUsername);
   }
 
+  public EmployeeDTO getEmployee(String employeeUsername) {
+    return EmployeeMapper.INSTANCE.toDto(employeeRepository.findById(employeeUsername).orElseThrow(() -> new RuntimeException("Employee not found")));
+  }
+
   
 }

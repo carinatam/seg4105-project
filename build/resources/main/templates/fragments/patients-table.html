@@ -31,7 +31,7 @@
             <td th:text="${patient.email}"></td>
             <td>
               <!-- edit button -->
-              <a class="btn btn-primary btn-sm">Edit</a>
+              <a class="btn btn-primary btn-sm" th:href="@{|/admin/viewPatient/${patient.username}|}">View</a>
               <!-- delete button -->
               <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
               <form th:id="${patient.username}" th:action="@{|/admin/deletePatient/${patient.username}|}" method="POST"></form>

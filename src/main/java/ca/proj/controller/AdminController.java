@@ -1,7 +1,5 @@
 package ca.proj.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,6 @@ import ca.proj.service.AdminService;
 import ca.proj.service.AppointmentService;
 import ca.proj.service.EmployeeService;
 import ca.proj.service.PatientService;
-import ca.proj.service.PaymentService;
 import ca.proj.service.UserService;
 
 @Controller
@@ -43,7 +40,6 @@ public class AdminController {
   private PatientService patientService;
   @Autowired
   private AppointmentService appointmentService;
-  @Autowired private PaymentService paymentService;
 
   @GetMapping("/")
   public String getAdminDashboard(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
@@ -78,6 +74,60 @@ public class AdminController {
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
     return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+  }
+
+  @GetMapping("/viewEmployee/{username}")
+  public String getAdminViewEmployee(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
+      Authentication authResult, @PathVariable String username) {
+    model.addAttribute("employee", employeeService.getEmployee(username));
+    model.addAttribute("appointments", appointmentService.getEmployeeAppointments(username));
+    return Page.ADMIN_VIEW_EMPLOYEE.getUrl();
+  }
+
+  @GetMapping("/viewPatient/{username}")
+  public String getAdminViewPatient(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
+      Authentication authResult, @PathVariable String username) {
+    model.addAttribute("patient", patientService.getPatient(username));
+    model.addAttribute("appointments", appointmentService.getPatientAppointments(username));
+    return Page.ADMIN_VIEW_PATIENT.getUrl();
+  }
+
+  @GetMapping("/edit-appointment-page/{appointmentID}")
+  public String getAdminEditAppointment(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
+      Authentication authResult, @PathVariable int appointmentID) {
+    model.addAttribute("appointmentDTO", appointmentService.getAppointment(appointmentID));
+    model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
+    model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
+    System.out.println("appointmentDTO: " + appointmentService.getAppointment(appointmentID));
+    return Page.ADMIN_EDIT_APPOINTMENT.getUrl();
+  }
+
+  @PostMapping("/editAppointment")
+  public String editAppointment(@ModelAttribute("appointmentDTO") @Validated AppointmentDTO appointmentDTO,
+      BindingResult bindingResult, Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    boolean error = false;
+    if (appointmentDTO.getAppointmentDate() == null) {
+      model.addAttribute("nullDate", "Please select a date.");
+      error = true;
+    } else {
+      LocalDate date = appointmentDTO.getAppointmentDate().toLocalDate();
+      if (date.isBefore(LocalDate.now())) {
+        model.addAttribute("pastDate", "Please select a date in the future.");
+        error = true;
+      }
+    }
+    if (appointmentDTO.getAppointmentTime() == null) {
+      model.addAttribute("nullTime", "Please select a time.");
+      error = true;
+    }
+    if (error) {
+      model.addAttribute("appointment", appointmentDTO);
+      return Page.ADMIN_EDIT_APPOINTMENT.getUrl();
+    }
+    appointmentService.updateAppointment(appointmentDTO);
+    model.addAttribute("employee", employeeService.getEmployee(appointmentDTO.getEmployeeUsername()));
+    model.addAttribute("appointments", appointmentService.getEmployeeAppointments(appointmentDTO.getEmployeeUsername()));
+    return Page.ADMIN_VIEW_EMPLOYEE.getUrl();
   }
 
   @PostMapping("/add-employee")
@@ -209,7 +259,6 @@ public class AdminController {
         error = true;
       }
     }
-    System.out.println("time: " + appointmentDTO.getAppointmentTime());
 
     if (appointmentDTO.getAppointmentTime() == null) {
       model.addAttribute("nullTime", "Please select a time.");
@@ -245,7 +294,7 @@ public class AdminController {
 
   @PostMapping("/deletePatient/{patientUsername}")
   public String deletePatient(@PathVariable("patientUsername") String patientUsername,
-  @AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+      @AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
     patientService.deletePatient(patientUsername);
     model.addAttribute("employees", adminService.getEmployees());
     model.addAttribute("patients", adminService.getPatients());

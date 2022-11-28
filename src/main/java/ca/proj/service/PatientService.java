@@ -31,4 +31,8 @@ public class PatientService {
   public void deletePatient(String patientUsername) {
     patientRepository.deleteById(patientUsername);
   }
+
+  public PatientDTO getPatient(String patientUsername) {
+    return PatientMapper.INSTANCE.toDto(patientRepository.findById(patientUsername).orElseThrow(() -> new RuntimeException("Patient not found")));
+  }
 }

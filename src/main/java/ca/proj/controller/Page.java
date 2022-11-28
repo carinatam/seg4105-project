@@ -6,7 +6,9 @@ public enum Page {
   RECEPTIONIST_DASHBOARD("receptionist-dashboard"), RECEPTIONIST_ADD_APPOINTMENT("receptionist-add-appointment"),
   RECEPTIONIST_ADD_PATIENT("receptionist-add-patient"),
   RECEPTIONIST_ADD_EMPLOYEE("receptionist-add-employee"), DOCTOR_DASHBOARD("doctor-dashboard"),
-  PATIENT_DASHBOARD("patient-dashboard"), PATIENT_ADD_APPOINTMENT("patient-add-appointment"), LOGIN("login");
+  PATIENT_DASHBOARD("patient-dashboard"), PATIENT_ADD_APPOINTMENT("patient-add-appointment"), LOGIN("login"),
+  ADMIN_VIEW_EMPLOYEE("admin-view-employee"), ADMIN_EDIT_APPOINTMENT("admin-edit-appointment"),
+  ADMIN_VIEW_PATIENT("admin-view-patient");
 
   public final String url;
 
