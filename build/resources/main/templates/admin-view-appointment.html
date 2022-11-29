@@ -62,7 +62,7 @@
                   <p class="card-text">Employee</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${appointment.employeeUsername}"></p>
+                  <a class="card-link" th:href="@{/admin/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
                 </div>
               </div>
               <div class="row">
@@ -70,7 +70,7 @@
                   <p class="card-text">Patient</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${appointment.patientUsername}"></p>
+                  <a class="card-link" th:href="@{/admin/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
                 </div>
               </div>
             </div>

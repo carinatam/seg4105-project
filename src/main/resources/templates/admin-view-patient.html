@@ -95,6 +95,9 @@
           </div>
         </div>
         <div class="col-6">
+          <div class="d-grid gap-2">
+            <a th:href="@{/admin/add-appointment-page-patient/{patientUsername}(patientUsername=${patient.username})}" class="btn btn-primary" type="button">Add appointment for [[${patient.firstName}]] [[${patient.lastName}]]</a>
+          </div>
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">Upcoming Appointments</h5>
@@ -120,7 +123,8 @@
                     <td th:text="${appointment.appointmentTime}"></td>
                     <td th:text="${appointment.appointmentStatus}"></td>
                     <td>
-                      <a class="btn btn-outline-primary" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
                     </td>
                   </tr>
                 </tbody>

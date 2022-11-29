@@ -108,12 +108,15 @@
             </div>
           </div>
         </div>
-        <div class="col-6" th:if="${!appointments.empty}">
+        <div class="col-6" th:if="${employee.role == T(ca.proj.values.EmployeeRole).Doctor}">
+          <div class="d-grid gap-2">
+            <a th:href="@{/admin/add-appointment-page-employee/{employeeUsername}(employeeUsername=${employee.username})}" class="btn btn-primary" type="button">Add appointment for [[${employee.firstName}]] [[${employee.lastName}]]</a>
+          </div>
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">Upcoming Appointments</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body" th:if="${!appointments.empty}">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -134,12 +137,15 @@
                     <td th:text="${appointment.appointmentTime}"></td>
                     <td th:text="${appointment.appointmentStatus}"></td>
                     <td>
-                      <a class="btn btn-outline-primary" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <div class="card-body" th:if="${appointments.empty}">
+              <p class="card-text">No upcoming appointments!</p>
           </div>
         </div>
       </div>

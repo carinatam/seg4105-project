@@ -52,13 +52,13 @@
             <div class="form-group">
               <label for="employee">Employee Username</label>
               <select class="form-control" id="employee" th:field="*{employeeUsername}">
-                <option th:each="employee : ${employeeUsernames}" th:value="${employee}" th:text="${employee}"></option>
+                  <option th:each="employee : ${employeeUsernames}" th:value="${employee}" th:text="${employee}" th:selected="${employeeUsername == employee}"></option>
               </select>
             </div>
             <div class="form-group">
               <label for="patient">Patient Username</label>
               <select class="form-control" id="patient" th:field="*{patientUsername}">
-                <option th:each="patient : ${patientUsernames}" th:value="${patient}" th:text="${patient}"></option>
+                <option th:each="patient : ${patientUsernames}" th:value="${patient}" th:text="${patient}" th:selected="${patientUsername == patient}"></option>
               </select>
             </div>
             <div class="form-group">

@@ -85,6 +85,28 @@ public class AdminController {
     return Page.ADMIN_ADD_APPOINTMENT.getUrl();
   }
 
+  @GetMapping("/add-appointment-page-employee/{employeeUsername}")
+  public String getAdminAddAppointmentEmployee(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
+      Authentication authResult, @PathVariable String employeeUsername) {
+    AppointmentDTO appointmentDTO = new AppointmentDTO();
+    appointmentDTO.setEmployeeUsername(employeeUsername);
+    model.addAttribute("appointmentDTO", appointmentDTO);
+    model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
+    model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
+    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+  }
+
+  @GetMapping("/add-appointment-page-patient/{patientUsername}")
+  public String getAdminAddAppointmentPatient(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
+      Authentication authResult, @PathVariable String patientUsername) {
+    AppointmentDTO appointmentDTO = new AppointmentDTO();
+    appointmentDTO.setPatientUsername(patientUsername);
+    model.addAttribute("appointmentDTO", appointmentDTO);
+    model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
+    model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
+    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+  }
+
   @GetMapping("/viewEmployee/{username}")
   public String getAdminViewEmployee(Model model, @AuthenticationPrincipal CustomUserDetails userDetails,
       Authentication authResult, @PathVariable String username) {
