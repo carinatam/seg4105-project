@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Patient Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <div class="container-fluid">
+      <!-- back button with icon to admin dashboard -->
+      <a class="btn btn-outline-primary" th:href="@{/admin/}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+      </a>
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Employee Details</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Username:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.username}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">First Name:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.firstName}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Last Name:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.lastName}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Gender</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.lastName}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Date of Birth:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.dateOfBirth}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Address:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.address}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Phone:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.phone}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Email:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.email}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Salary:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.salary}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Role:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.role}"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6" th:if="${employee.role == T(ca.proj.values.EmployeeRole).Doctor}">
+          <div class="d-grid gap-2">
+            <a th:href="@{/admin/add-appointment-page-employee/{employeeUsername}(employeeUsername=${employee.username})}" class="btn btn-primary" type="button">Add appointment for [[${employee.firstName}]] [[${employee.lastName}]]</a>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Upcoming Appointments</h5>
+            </div>
+            <div class="card-body" th:if="${!appointments.empty}">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Patient</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="appointment : ${appointments}">
+                    <!-- appointmentID, appointmentDate, appointmentTime, appointmentStatus, patientUsername -->
+                    <th th:text="${appointment.appointmentID}"></th>
+                    <td th:text="${appointment.patientUsername}"></td>
+                    <td th:text="${appointment.appointmentDate}"></td>
+                    <td th:text="${appointment.appointmentTime}"></td>
+                    <td th:text="${appointment.appointmentStatus}"></td>
+                    <td>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-body" th:if="${appointments.empty}">
+              <p class="card-text">No upcoming appointments!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

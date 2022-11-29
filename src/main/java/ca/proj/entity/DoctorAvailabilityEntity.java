@@ -22,13 +22,13 @@ public class DoctorAvailabilityEntity {
   @Column(name = "day")
   private String day;
 
-  @Column(name = "startTime")
+  @Column(name = "starttime")
   private Time startTime;
 
-  @Column(name = "endTime")
+  @Column(name = "endtime")
   private Time endTime;
 
   @ManyToOne
-  @JoinColumn(name = "doctorUsername")
+  @JoinColumn(name = "doctorusername")
   private EmployeeEntity doctor;
 }

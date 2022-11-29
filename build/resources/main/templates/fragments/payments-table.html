@@ -1,0 +1,30 @@
+<div th:fragment="payments-table(payments)">
+  <div class="container-fluid">
+    <div class="col-12">
+      <!-- table with columns: ID, Date, Time, Amount, Appointment ID -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Payment ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Appointment ID</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="payment : ${payments}">
+            <td th:text="${payment.paymentID}"></td>
+            <td th:text="${payment.paymentDate}"></td>
+            <td th:text="${payment.paymentTime}"></td>
+            <td th:text="${#numbers.formatCurrency(payment.paymentAmount)}"></td>
+            <td th:text="${payment.appointmentID}"></td>
+            <td>
+              <a th:href="@{/admin/appointments/{appointmentID}(appointmentID=${payment.appointmentID})}" class="btn btn-primary btn-sm"> View Appointment </a>
+            </td>
+          </tr>
+        </tbody>
+    </div>
+  </div>
+</div>

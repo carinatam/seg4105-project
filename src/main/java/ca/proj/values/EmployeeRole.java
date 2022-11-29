@@ -1,9 +1,9 @@
 package ca.proj.values;
 
 public enum EmployeeRole {
-  DOCTOR("Doctor"),
-  RECEPTIONIST("Receptionist"),
-  ADMIN("Admin");
+  Doctor("Doctor"),
+  Receptionist("Receptionist"),
+  Admin("Admin");
 
   public final String label;
 

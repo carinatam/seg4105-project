@@ -3,14 +3,16 @@ package ca.proj.entity;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import ca.proj.values.EmployeeRole;
@@ -20,16 +22,16 @@ import lombok.Data;
 @Table(name = "employee")
 @Data
 public class EmployeeEntity {
-  @Column(name = "firstName")
+  @Column(name = "firstname")
   private String firstName;
 
-  @Column(name = "lastName")
+  @Column(name = "lastname")
   private String lastName;
 
   @Column(name = "gender")
   private String gender;
 
-  @Column(name = "dateOfBirth")
+  @Column(name = "dateofbirth")
   private Date dateOfBirth;
 
   @Column(name = "address")
@@ -45,17 +47,18 @@ public class EmployeeEntity {
   private int salary;
 
   @Column(name = "role")
+  @Enumerated(EnumType.STRING)
   private EmployeeRole role;
 
   @Id
+  @Column(name = "username")
   private String username;
 
-  @MapsId
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "username")
+  @PrimaryKeyJoinColumn
+  @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   private UserEntity user;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<AppointmentEntity> appointments;
 
   @OneToMany(mappedBy = "doctor")

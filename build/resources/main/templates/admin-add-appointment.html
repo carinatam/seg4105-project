@@ -18,36 +18,65 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <form action="#" method="POST">
-            <div class="mb-3">
-              <label for="patient" class="form-label">Patient</label>
-              <select class="form-select" id="patient">
-                <option>John Doe</option>
-                <option>John Doe</option>
-                <option>John Doe</option>
-                <option>John Doe</option>
+          <div class="alert alert-success uk-alert-success alert-dismissible fade show" th:if="${addAppointmentSuccess}" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <strong>Success!</strong> Appointment added successfully.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <!-- error alerts: nullDate, nullTime -->
+          <div class="alert alert-danger uk-alert-danger alert-dismissible fade show" th:if="${nullDate}" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+              <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <strong>Error!</strong> [[${nullDate}]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div class="alert alert-danger uk-alert-danger alert-dismissible fade show" th:if="${pastDate}" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+              <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <strong>Error!</strong> [[${pastDate}]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div class="alert alert-danger uk-alert-danger alert-dismissible fade show" th:if="${nullTime}" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
+              <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <strong>Error!</strong> [[${nullTime}]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+          <form th:action="@{/admin/add-appointment}" th:object="${appointmentDTO}" method="post">
+            <div class="form-group">
+              <label for="employee">Employee Username</label>
+              <select class="form-control" id="employee" th:field="*{employeeUsername}">
+                  <option th:each="employee : ${employeeUsernames}" th:value="${employee}" th:text="${employee}" th:selected="${employeeUsername == employee}"></option>
               </select>
             </div>
-            <div class="mb-3">
-              <label for="doctor" class="form-label">Doctor</label>
-              <select class="form-select" id="doctor">
-                <option>John Doe</option>
-                <option>John Doe</option>
-                <option>John Doe</option>
-                <option>John Doe</option>
+            <div class="form-group">
+              <label for="patient">Patient Username</label>
+              <select class="form-control" id="patient" th:field="*{patientUsername}">
+                <option th:each="patient : ${patientUsernames}" th:value="${patient}" th:text="${patient}" th:selected="${patientUsername == patient}"></option>
               </select>
             </div>
-            <div class="mb-3">
-              <label for="date" class="form-label">Date</label>
-              <input type="date" class="form-control" id="date" />
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" id="date" th:field="*{appointmentDate}" />
             </div>
-            <div class="mb-3">
-              <label for="time" class="form-label">Time</label>
-              <input type="time" class="form-control" id="time" />
+            <div class="form-group">
+              <label for="time">Time</label>
+              <input type="time" class="form-control" id="time" th:field="*{appointmentTime}" />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-          
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select class="form-control" id="status" th:field="*{appointmentStatus}">
+                <option th:each="status : ${T(ca.proj.values.AppointmentStatus).values()}" th:value="${status}" th:text="${status}"></option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Appointment</button>    
+          </form>      
         </div>
       </div>
     </div>
