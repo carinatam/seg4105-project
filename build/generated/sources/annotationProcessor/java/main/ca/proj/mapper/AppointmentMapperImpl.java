@@ -11,7 +11,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-23T12:36:15-0500",
+    date = "2022-11-30T10:27:01-0500",
     comments = "version: 1.4.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 public class AppointmentMapperImpl implements AppointmentMapper {
@@ -29,6 +29,7 @@ public class AppointmentMapperImpl implements AppointmentMapper {
         appointmentDTO.setAppointmentID( appointment.getAppointmentID() );
         appointmentDTO.setAppointmentDate( appointment.getAppointmentDate() );
         appointmentDTO.setAppointmentTime( appointment.getAppointmentTime() );
+        appointmentDTO.setAppointmentStatus( appointment.getAppointmentStatus() );
 
         return appointmentDTO;
     }
@@ -46,6 +47,7 @@ public class AppointmentMapperImpl implements AppointmentMapper {
         appointmentEntity.setAppointmentID( appointment.getAppointmentID() );
         appointmentEntity.setAppointmentDate( appointment.getAppointmentDate() );
         appointmentEntity.setAppointmentTime( appointment.getAppointmentTime() );
+        appointmentEntity.setAppointmentStatus( appointment.getAppointmentStatus() );
 
         return appointmentEntity;
     }

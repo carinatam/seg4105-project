@@ -1,5 +1,4 @@
-<!-- no thymeleaf bootstrap table of appointments with pagination -->
-<div th:fragment="appointments-table">
+<div th:fragment="appointments-table(appointments)">
   <div class="container-fluid">
     <div class="col-12">
       <table class="table table-striped">
@@ -8,133 +7,35 @@
             <th scope="col">ID</th>
             <th scope="col">Date</th>
             <th scope="col">Time</th>
-            <th scope="col">Patient</th>
-            <th scope="col">Doctor</th>
+            <th scope="col">Status</th>
+            <th scope="col">Employee Username</th>
+            <th scope="col">Patient Username</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <!-- dummy info -->
-          <tr>
-            <th scope="row">1</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
+          <tr th:each="appointment : ${appointments}">
+            <td th:text="${appointment.appointmentID}"></td>
+            <td th:text="${appointment.appointmentDate}"></td>
+            <td th:text="${appointment.appointmentTime}"></td>
+            <td th:text="${appointment.appointmentStatus}"></td>
+            <td th:text="${appointment.employeeUsername}"></td>
+            <td th:text="${appointment.patientUsername}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+              <a th:href="@{/admin/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary btn-sm">View</a>
+              <a class="btn btn-primary btn-sm" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}">Edit</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${appointment.appointmentID}').submit()|">Delete</a>
+              <form th:id="${appointment.appointmentID}" th:action="@{|/admin/deleteAppointment/${appointment.appointmentID}|}" method="POST"></form>
+            </td>
+            <td sec:authorize="hasAuthority('RECEPTIONIST')">
+              <a th:href="@{/receptionist/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary btn-sm">View</a>
+              <a class="btn btn-primary btn-sm" th:href="@{/receptionist/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}">Edit</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${appointment.appointmentID}').submit()|">Delete</a>
+              <form th:id="${appointment.appointmentID}" th:action="@{|/receptionist/deleteAppointment/${appointment.appointmentID}|}" method="POST"></form>
             </td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">9</th>
-            <td>01/01/2020</td>
-            <td>10:00</td>
-            <td>John Doe</td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <!-- enough -->
         </tbody>
       </table>
-    </div>
-  </div>
-  <!-- pagination -->
-  <div class="row">
-    <div class="col-12">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
     </div>
   </div>
 </div>

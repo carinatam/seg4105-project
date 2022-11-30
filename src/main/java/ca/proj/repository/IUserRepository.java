@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import ca.proj.entity.UserEntity;
 
 @Repository
-public interface IUserRepository extends JpaRepository<UserEntity, Integer> {
+public interface IUserRepository extends JpaRepository<UserEntity, String> {
   
   // username exists
   @Query(value = "SELECT COUNT(1) FROM users WHERE username = :newUsername", nativeQuery = true)

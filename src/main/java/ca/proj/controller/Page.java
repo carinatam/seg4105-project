@@ -1,12 +1,13 @@
 package ca.proj.controller;
 
 public enum Page {
-  ADMIN_DASHBOARD("admin-dashboard"), ADMIN_ADD_EMPLOYEE("admin-add-employee"), ADMIN_ADD_PATIENT("admin-add-patient"),
-  ADMIN_ADD_APPOINTMENT("admin-add-appointment"), REDIRECT("redirect:"),
-  RECEPTIONIST_DASHBOARD("receptionist-dashboard"), RECEPTIONIST_ADD_APPOINTMENT("receptionist-add-appointment"),
-  RECEPTIONIST_ADD_PATIENT("receptionist-add-patient"),
-  RECEPTIONIST_ADD_EMPLOYEE("receptionist-add-employee"), DOCTOR_DASHBOARD("doctor-dashboard"),
-  PATIENT_DASHBOARD("patient-dashboard"), PATIENT_ADD_APPOINTMENT("patient-add-appointment"), LOGIN("login");
+  ADMIN_DASHBOARD("admin-dashboard"), ADD_EMPLOYEE("add-employee"), ADD_PATIENT("add-patient"),
+  ADD_APPOINTMENT("add-appointment"), REDIRECT("redirect:"),
+  RECEPTIONIST_DASHBOARD("receptionist-dashboard"),
+  DOCTOR_DASHBOARD("doctor-dashboard"),
+  PATIENT_DASHBOARD("patient-dashboard"), PATIENT_ADD_APPOINTMENT("patient-add-appointment"), LOGIN("login"),
+  VIEW_EMPLOYEE("view-employee"), EDIT_APPOINTMENT("edit-appointment"),
+  VIEW_PATIENT("view-patient"), VIEW_APPOINTMENT("view-appointment");
 
   public final String url;
 

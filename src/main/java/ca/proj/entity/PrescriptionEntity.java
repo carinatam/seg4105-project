@@ -16,16 +16,16 @@ import lombok.Data;
 @Data
 public class PrescriptionEntity {
   @Id
-  @Column(name = "prescriptionID")
+  @Column(name = "prescriptionid")
   private int prescriptionID;
 
-  @Column(name = "prescriptionDate")
+  @Column(name = "prescriptiondate")
   private Date prescriptionDate;
 
   @Column(name = "prescription")
   private String prescription;
 
   @ManyToOne
-  @JoinColumn(name = "appointmentID")
+  @JoinColumn(name = "appointmentid")
   private AppointmentEntity appointment;
 }

@@ -1,9 +1,9 @@
 package ca.proj.values;
 
 public enum AppointmentStatus {
-  PENDING("Pending"),
-  CONFIRMED("Confirmed"),
-  CANCELLED("Cancelled");
+  Pending("Pending"),
+  Confirmed("Confirmed"),
+  Cancelled("Cancelled");
 
   public final String label;
 

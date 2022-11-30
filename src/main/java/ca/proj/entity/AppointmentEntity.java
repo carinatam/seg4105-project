@@ -1,11 +1,16 @@
 package ca.proj.entity;
 
 import java.sql.Date;
-import java.sql.Time;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,29 +25,31 @@ import lombok.Data;
 @Data
 public class AppointmentEntity {
   @Id
-  @Column(name = "appointmentID")
+  @Column(name = "appointmentid", unique = true)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private int appointmentID;
 
-  @Column(name = "appointmentDate")
+  @Column(name = "appointmentdate")
   private Date appointmentDate;
 
-  @Column(name = "appointmentTime")
-  private Time appointmentTime;
+  @Column(name = "appointmenttime")
+  private String appointmentTime;
 
-  @Column(name = "appointmentStatus")
+  @Column(name = "appointmentstatus")
+  @Enumerated(EnumType.STRING)
   private AppointmentStatus appointmentStatus;
 
-  @ManyToOne
-  @JoinColumn(name = "employeeUsername")
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(referencedColumnName = "username", name = "employeeusername")
   private EmployeeEntity employee;
 
-  @ManyToOne
-  @JoinColumn(name = "patientUsername")
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(referencedColumnName = "username", name = "patientusername")
   private PatientEntity patient;
 
   @OneToMany(mappedBy = "appointment")
-  private Set<PrescriptionEntity> prescriptions;
+  private Set<PrescriptionEntity> prescriptions = new HashSet<>();
 
   @OneToMany(mappedBy = "appointment")
-  private Set<PaymentEntity> payments;
+  private Set<PaymentEntity> payments = new HashSet<>();
 }

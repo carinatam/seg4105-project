@@ -1,102 +1,47 @@
 <!-- no thymeleaf bootstrap table of patients with pagination -->
-<div th:fragment="patients-table">
+<div th:fragment="patients-table(patients)">
   <div class="container-fluid">
     <div class="col-12">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <!-- columns: username, first name, last name, gender, date of birth, address, phone, email -->
+            <th scope="col">Username</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
-            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Address</th>
             <th scope="col">Phone</th>
-            <th scope="col">Doctor</th>
+            <th scope="col">Email</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <!-- dummy info -->
-          <tr>
-            <th scope="row">1</th>
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="mailto:[...]"></a></td>
-            <td><a href="tel:[...]"></a></td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
+          <!-- iterate over patients -->
+          <tr th:each="patient : ${patients}">
+            <!-- display patient's data -->
+            <td th:text="${patient.username}"></td>
+            <td th:text="${patient.firstName}"></td>
+            <td th:text="${patient.lastName}"></td>
+            <td th:text="${patient.gender}"></td>
+            <td th:text="${patient.dateOfBirth}"></td>
+            <td th:text="${patient.address}"></td>
+            <td th:text="${patient.phone}"></td>
+            <td th:text="${patient.email}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+              <a class="btn btn-primary btn-sm" th:href="@{|/admin/viewPatient/${patient.username}|}">View</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
+              <form th:id="${patient.username}" th:action="@{|/admin/deletePatient/${patient.username}|}" method="POST"></form>
             </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="mailto:[...]"></a></td>
-            <td><a href="tel:[...]"></a></td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="mailto:[...]"></a></td>
-            <td><a href="tel:[...]"></a></td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="mailto:[...]"></a></td>
-            <td><a href="tel:[...]"></a></td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="mailto:[...]"></a></td>
-            <td><a href="tel:[...]"></a></td>
-            <td>Doctor</td>
-            <td>
-              <a href="#" class="btn btn-primary btn-sm">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm">Delete</a>
+            <td sec:authorize="hasAuthority('RECEPTIONIST')">
+              <a class="btn btn-primary btn-sm" th:href="@{|/receptionist/viewPatient/${patient.username}|}">View</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
+              <form th:id="${patient.username}" th:action="@{|/receptionist/deletePatient/${patient.username}|}" method="POST"></form>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- pagination -->
-  <div class="row">
-    <div class="col-12">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
     </div>
   </div>
 </div>
