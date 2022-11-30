@@ -9,30 +9,35 @@
   </head>
 
   <body>
-    <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
     <div class="container-fluid">
-      <!-- back button wiht icon to admin dashboard -->
-      <a class="btn btn-primary" th:href="@{/admin/}">
+      <!-- back button with icon to admin dashboard -->
+      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
         </svg>
         Back
       </a>
-      <!-- show patient details and upcoming appointments like admin-view-employee -->
+      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('RECEPTIONIST')" th:href="@{/receptionist/}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+      </a>
       <div class="row">
         <div class="col-6">
           <div class="card">
             <div class="card-header">
-              <h5 class="card-title">Patient Details</h5>
+              <h5 class="card-title">Employee Details</h5>
             </div>
             <div class="card-body">
-              <!-- fields: username, first name, last name, gender, date of birth, address, phone, email -->
               <div class="row">
                 <div class="col-4">
                   <p class="card-text">Username:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.username}"></p>
+                  <p class="card-text" th:text="${employee.username}"></p>
                 </div>
               </div>
               <div class="row">
@@ -40,7 +45,7 @@
                   <p class="card-text">First Name:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.firstName}"></p>
+                  <p class="card-text" th:text="${employee.firstName}"></p>
                 </div>
               </div>
               <div class="row">
@@ -48,15 +53,15 @@
                   <p class="card-text">Last Name:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.lastName}"></p>
+                  <p class="card-text" th:text="${employee.lastName}"></p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">
-                  <p class="card-text">Gender:</p>
+                  <p class="card-text">Gender</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.gender}"></p>
+                  <p class="card-text" th:text="${employee.lastName}"></p>
                 </div>
               </div>
               <div class="row">
@@ -64,7 +69,7 @@
                   <p class="card-text">Date of Birth:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.dateOfBirth}"></p>
+                  <p class="card-text" th:text="${employee.dateOfBirth}"></p>
                 </div>
               </div>
               <div class="row">
@@ -72,7 +77,7 @@
                   <p class="card-text">Address:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.address}"></p>
+                  <p class="card-text" th:text="${employee.address}"></p>
                 </div>
               </div>
               <div class="row">
@@ -80,7 +85,7 @@
                   <p class="card-text">Phone:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.phone}"></p>
+                  <p class="card-text" th:text="${employee.phone}"></p>
                 </div>
               </div>
               <div class="row">
@@ -88,26 +93,43 @@
                   <p class="card-text">Email:</p>
                 </div>
                 <div class="col-8">
-                  <p class="card-text" th:text="${patient.email}"></p>
+                  <p class="card-text" th:text="${employee.email}"></p>
+                </div>
+              </div>
+              <div class="row" sec:authorize="hasAuthority('ADMIN')">
+                <div class="col-4">
+                  <p class="card-text">Salary:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${#numbers.formatCurrency(employee.salary)}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <p class="card-text">Role:</p>
+                </div>
+                <div class="col-8">
+                  <p class="card-text" th:text="${employee.role}"></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-6" th:if="${employee.role == T(ca.proj.values.EmployeeRole).Doctor}">
           <div class="d-grid gap-2">
-            <a th:href="@{/admin/add-appointment-page-patient/{patientUsername}(patientUsername=${patient.username})}" class="btn btn-primary" type="button">Add appointment for [[${patient.firstName}]] [[${patient.lastName}]]</a>
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/add-appointment-page-employee/{employeeUsername}(employeeUsername=${employee.username})}" class="btn btn-primary" type="button">Add appointment for [[${employee.firstName}]] [[${employee.lastName}]]</a>
+            <a sec:authorize="hasAuthority('RECEPTIONIST')" th:href="@{/receptionist/add-appointment-page-employee/{employeeUsername}(employeeUsername=${employee.username})}" class="btn btn-primary" type="button">Add appointment for [[${employee.firstName}]] [[${employee.lastName}]]</a>
           </div>
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">Upcoming Appointments</h5>
             </div>
-            <div class="card-body">
-              <table class="table table-striped" th:if="${!appointments.empty}">
+            <div class="card-body" th:if="${!appointments.empty}">
+              <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Doctor</th>
+                    <th scope="col">Patient</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Status</th>
@@ -115,22 +137,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- loop through appointments -->
                   <tr th:each="appointment : ${appointments}">
-                    <th scope="row" th:text="${appointment.appointmentID}"></th>
-                    <td th:text="${appointment.employeeUsername}"></td>
+                    <!-- appointmentID, appointmentDate, appointmentTime, appointmentStatus, patientUsername -->
+                    <th th:text="${appointment.appointmentID}"></th>
+                    <td th:text="${appointment.patientUsername}"></td>
                     <td th:text="${appointment.appointmentDate}"></td>
                     <td th:text="${appointment.appointmentTime}"></td>
                     <td th:text="${appointment.appointmentStatus}"></td>
-                    <td>
+                    <td sec:authorize="hasAuthority('ADMIN')">
                       <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
                       <a class="btn btn-sm btn-outline-primary" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
+                    </td>
+                    <td sec:authorize="hasAuthority('RECEPTIONIST')">
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/receptionist/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/receptionist/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <p th:if="${appointments.empty}">No upcoming appointments!</p>
             </div>
+            <div class="card-body" th:if="${appointments.empty}">
+              <p class="card-text">No upcoming appointments!</p>
           </div>
         </div>
       </div>

@@ -9,7 +9,12 @@
   </head>
 
   <body>
+<<<<<<< HEAD
+    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
+=======
     <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+>>>>>>> ff25345798fc0e2c61666d215b37ba6774616e65
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -41,7 +46,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
 
-          <form th:action="@{/admin/editAppointment}" th:object="${appointmentDTO}" method="post">
+          <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/admin/editAppointment}" th:object="${appointmentDTO}" method="post">
             <input type="hidden" th:value="*{appointmentID}" th:field="*{appointmentID}" readonly/>
             <div class="form-group">
               <label for="employee">Employee Username</label>
@@ -70,7 +75,37 @@
               </select>
             </div>
             <button type="submit" class="btn btn-primary">Update Appointment</button>    
-          </form>      
+          </form> 
+          <form sec:authorize="hasAuthority('RECEPTIONIST')" th:action="@{/receptionist/editAppointment}" th:object="${appointmentDTO}" method="post">
+            <input type="hidden" th:value="*{appointmentID}" th:field="*{appointmentID}" readonly/>
+            <div class="form-group">
+              <label for="employee">Employee Username</label>
+              <select class="form-control" id="employee" th:field="*{employeeUsername}">
+                <option th:each="employee : ${employeeUsernames}" th:value="${employee}" th:text="${employee}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="patient">Patient Username</label>
+              <select class="form-control" id="patient" th:field="*{patientUsername}">
+                <option th:each="patient : ${patientUsernames}" th:value="${patient}" th:text="${patient}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" id="date" th:field="*{appointmentDate}" />
+            </div>
+            <div class="form-group">
+              <label for="time">Time</label>
+              <input type="time" class="form-control" id="time" th:field="*{appointmentTime}" />
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select class="form-control" id="status" th:field="*{appointmentStatus}">
+                <option th:each="status : ${T(ca.proj.values.AppointmentStatus).values()}" th:value="${status}" th:text="${status}"></option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Appointment</button>    
+          </form> 
         </div>
       </div>
     </div>

@@ -29,12 +29,15 @@
             <td th:text="${patient.address}"></td>
             <td th:text="${patient.phone}"></td>
             <td th:text="${patient.email}"></td>
-            <td>
-              <!-- edit button -->
+            <td sec:authorize="hasAuthority('ADMIN')">
               <a class="btn btn-primary btn-sm" th:href="@{|/admin/viewPatient/${patient.username}|}">View</a>
-              <!-- delete button -->
               <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
               <form th:id="${patient.username}" th:action="@{|/admin/deletePatient/${patient.username}|}" method="POST"></form>
+            </td>
+            <td sec:authorize="hasAuthority('RECEPTIONIST')">
+              <a class="btn btn-primary btn-sm" th:href="@{|/receptionist/viewPatient/${patient.username}|}">View</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
+              <form th:id="${patient.username}" th:action="@{|/receptionist/deletePatient/${patient.username}|}" method="POST"></form>
             </td>
           </tr>
         </tbody>

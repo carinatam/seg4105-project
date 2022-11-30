@@ -9,10 +9,17 @@
   </head>
 
   <body>
-    <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
     <!-- view appointment details: appointment id, appointment date, appointment time, appointment status, employee, patient, table of prescriptions, table of payments -->
     <div class="container-fluid">
-      <a class="btn btn-outline-primary" th:href="@{/admin/}">
+      <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-outline-primary" th:href="@{/admin/}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+      </a>
+      <a sec:authorize="hasAuthority('RECEPTIONIST')" class="btn btn-outline-primary" th:href="@{/receptionist/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
         </svg>
@@ -62,7 +69,8 @@
                   <p class="card-text">Employee</p>
                 </div>
                 <div class="col-8">
-                  <a class="card-link" th:href="@{/admin/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
+                  <a sec:authorize="hasAuthority('ADMIN')" class="card-link" th:href="@{/admin/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
+                  <a sec:authorize="hasAuthority('RECEPTIONIST')" class="card-link" th:href="@{/receptionist/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
                 </div>
               </div>
               <div class="row">
@@ -70,7 +78,8 @@
                   <p class="card-text">Patient</p>
                 </div>
                 <div class="col-8">
-                  <a class="card-link" th:href="@{/admin/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
+                  <a sec:authorize="hasAuthority('ADMIN')" class="card-link" th:href="@{/admin/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
+                  <a sec:authorize="hasAuthority('RECEPTIONIST')" class="card-link" th:href="@{/receptionist/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
                 </div>
               </div>
             </div>
@@ -79,7 +88,7 @@
         <!-- format details like in admin-view-employee -->
         <div class="col-6">
           <h2>Prescriptions</h2>
-          <table class="table table-striped">
+          <table class="table table-striped" th:if="${!prescriptions.empty}">
             <thead>
               <tr>
                 <!-- columns: prescription id, prescription date, prescription time, prescription status, prescription details, prescription notes -->
@@ -98,8 +107,9 @@
               </tr>
             </tbody>
           </table>
+          <p th:if="${prescriptions.empty}">No associated prescriptions.</p>
           <h2>Payments</h2>
-          <table class="table table-striped">
+          <table class="table table-striped" th:if="${!payments.empty}">
             <thead>
               <tr>
                 <!-- columns: payment id, payment date, payment time, payment status, payment amount, payment method -->
@@ -120,6 +130,7 @@
               </tr>
             </tbody>
           </table>
+          <p th:if="${payments.empty}">No associated payments.</p>
         </div>
       </div>
     </div>
