@@ -9,20 +9,21 @@
   </head>
 
   <body>
-    <nav th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
+    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="text-center">Add Employee</h1>
+          <h1 class="text-center">Add Patient</h1>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="alert alert-success uk-alert-success alert-dismissible fade show" th:if="${addEmployeeSuccess}" role="alert">
+          <div class="alert alert-success alert-dismissible fade show" th:if="${addPatientSuccess}" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
             </svg>
-            <strong>Success!</strong> Employee added successfully.
+            <strong>Success!</strong> Patient added successfully.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
           <div class="alert alert-danger alert-dismissible fade show" th:if="${nullUsername}" role="alert">
@@ -88,17 +89,11 @@
             <strong>Error!</strong> [[${nullEmail}]]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          <div class="alert alert-danger alert-dismissible fade show" th:if="${nullSalary}" role="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-diamond-fill" viewBox="0 0 16 16">
-              <path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-            <strong>Error!</strong> [[${nullSalary}]]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          <form method="post" th:action="@{/admin/add-employee}">
+          <!-- thymeleaf form to create patient with fields: username, password, first name, last name, gender, dateofbirth, address, phone, email -->
+          <form sec:authorize="hasAuthority('ADMIN')" method="post" th:action="@{/admin/add-patient}">
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"  th:field="*{userDTO.username}" />
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" th:field="*{userDTO.username}" />
             </div>
             <div class="form-group">
               <label for="password">Password</label>
@@ -106,15 +101,15 @@
             </div>
             <div class="form-group">
               <label for="firstName">First Name</label>
-              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" th:field="*{employeeDTO.firstName}" />
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" th:field="*{patientDTO.firstName}" />
             </div>
             <div class="form-group">
               <label for="lastName">Last Name</label>
-              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" th:field="*{employeeDTO.lastName}" />
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" th:field="*{patientDTO.lastName}" />
             </div>
             <div class="form-group">
               <label for="gender">Gender</label>
-              <select class="form-control" id="gender" th:field="*{employeeDTO.gender}">
+              <select class="form-control" id="gender" th:field="*{patientDTO.gender}">
                 <option th:value="'Male'">Male</option>
                 <option th:value="'Female'">Female</option>
                 <option th:value="'Other'">Other</option>
@@ -122,33 +117,67 @@
             </div>
             <div class="form-group">
               <label for="dateOfBirth">Date of Birth</label>
-              <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Enter date of birth" th:field="*{employeeDTO.dateOfBirth}" />
+              <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Enter date of birth" th:field="*{patientDTO.dateOfBirth}" />
             </div>
             <div class="form-group">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" name="address" placeholder="Enter address" th:field="*{employeeDTO.address}" />
+              <input type="text" class="form-control" id="address" name="address" placeholder="Enter address" th:field="*{patientDTO.address}" />
             </div>
             <div class="form-group">
               <label for="phone">Phone</label>
-              <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" th:field="*{employeeDTO.phone}" />
+              <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" th:field="*{patientDTO.phone}" />
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" th:field="*{employeeDTO.email}" />
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" th:field="*{patientDTO.email}" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <form sec:authorize="hasAuthority('RECEPTIONIST')" method="post" th:action="@{/receptionist/add-patient}">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" th:field="*{userDTO.username}" />
             </div>
             <div class="form-group">
-              <label for="salary">Salary</label>
-              <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary" th:field="*{employeeDTO.salary}" />
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" th:field="*{userDTO.password}" />
             </div>
             <div class="form-group">
-              <label for="role">Role</label>
-              <select class="form-control" id="role" th:field="*{employeeDTO.role}">
-                <option th:each="role : ${T(ca.proj.values.EmployeeRole).values()}" th:value="${role}" th:text="${role}"></option>
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" th:field="*{patientDTO.firstName}" />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" th:field="*{patientDTO.lastName}" />
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select class="form-control" id="gender" th:field="*{patientDTO.gender}">
+                <option th:value="'Male'">Male</option>
+                <option th:value="'Female'">Female</option>
+                <option th:value="'Other'">Other</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Date of Birth</label>
+              <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Enter date of birth" th:field="*{patientDTO.dateOfBirth}" />
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" name="address" placeholder="Enter address" th:field="*{patientDTO.address}" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" th:field="*{patientDTO.phone}" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" th:field="*{patientDTO.email}" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
       </div>
+    </div>
   </body>
 </html>

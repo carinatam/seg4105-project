@@ -21,4 +21,7 @@ public interface IEmployeeRepository extends JpaRepository<EmployeeEntity, Strin
 
   @Query(value = "SELECT username FROM employee WHERE role = 'Doctor'", nativeQuery = true)
   List<String> findAllDoctorsUsernames();
+
+  @Query(value = "SELECT * FROM employee WHERE role != 'Admin'", nativeQuery = true)
+  List<EmployeeEntity> findAllNoAdmin();
 }

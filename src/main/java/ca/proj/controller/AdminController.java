@@ -56,7 +56,7 @@ public class AdminController {
       Authentication authResult) {
     model.addAttribute("userDTO", new UserDTO());
     model.addAttribute("employeeDTO", new EmployeeDTO());
-    return Page.ADMIN_ADD_EMPLOYEE.getUrl();
+    return Page.ADD_EMPLOYEE.getUrl();
   }
 
   @GetMapping("/add-patient-page")
@@ -64,7 +64,7 @@ public class AdminController {
       Authentication authResult) {
     model.addAttribute("userDTO", new UserDTO());
     model.addAttribute("patientDTO", new PatientDTO());
-    return Page.ADMIN_ADD_PATIENT.getUrl();
+    return Page.ADD_PATIENT.getUrl();
   }
 
   @GetMapping("/appointments/{appointmentID}")
@@ -73,7 +73,7 @@ public class AdminController {
     model.addAttribute("appointment", appointmentService.getAppointment(appointmentID));
     model.addAttribute("prescriptions", appointmentService.getPrescriptions(appointmentID));
     model.addAttribute("payments", appointmentService.getPayments(appointmentID));
-    return Page.ADMIN_VIEW_APPOINTMENT.getUrl();
+    return Page.VIEW_APPOINTMENT.getUrl();
   }
 
   @GetMapping("/add-appointment-page")
@@ -82,7 +82,7 @@ public class AdminController {
     model.addAttribute("appointmentDTO", new AppointmentDTO());
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
-    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+    return Page.ADD_APPOINTMENT.getUrl();
   }
 
   @GetMapping("/add-appointment-page-employee/{employeeUsername}")
@@ -93,7 +93,7 @@ public class AdminController {
     model.addAttribute("appointmentDTO", appointmentDTO);
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
-    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+    return Page.ADD_APPOINTMENT.getUrl();
   }
 
   @GetMapping("/add-appointment-page-patient/{patientUsername}")
@@ -104,7 +104,7 @@ public class AdminController {
     model.addAttribute("appointmentDTO", appointmentDTO);
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
-    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+    return Page.ADD_APPOINTMENT.getUrl();
   }
 
   @GetMapping("/viewEmployee/{username}")
@@ -112,7 +112,7 @@ public class AdminController {
       Authentication authResult, @PathVariable String username) {
     model.addAttribute("employee", employeeService.getEmployee(username));
     model.addAttribute("appointments", appointmentService.getEmployeeAppointments(username));
-    return Page.ADMIN_VIEW_EMPLOYEE.getUrl();
+    return Page.VIEW_EMPLOYEE.getUrl();
   }
 
   @GetMapping("/viewPatient/{username}")
@@ -120,7 +120,7 @@ public class AdminController {
       Authentication authResult, @PathVariable String username) {
     model.addAttribute("patient", patientService.getPatient(username));
     model.addAttribute("appointments", appointmentService.getPatientAppointments(username));
-    return Page.ADMIN_VIEW_PATIENT.getUrl();
+    return Page.VIEW_PATIENT.getUrl();
   }
 
   @GetMapping("/edit-appointment-page/{appointmentID}")
@@ -129,8 +129,7 @@ public class AdminController {
     model.addAttribute("appointmentDTO", appointmentService.getAppointment(appointmentID));
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
-    System.out.println("appointmentDTO: " + appointmentService.getAppointment(appointmentID));
-    return Page.ADMIN_EDIT_APPOINTMENT.getUrl();
+    return Page.EDIT_APPOINTMENT.getUrl();
   }
 
   @PostMapping("/editAppointment")
@@ -153,12 +152,12 @@ public class AdminController {
     }
     if (error) {
       model.addAttribute("appointment", appointmentDTO);
-      return Page.ADMIN_EDIT_APPOINTMENT.getUrl();
+      return Page.EDIT_APPOINTMENT.getUrl();
     }
     appointmentService.updateAppointment(appointmentDTO);
     model.addAttribute("employee", employeeService.getEmployee(appointmentDTO.getEmployeeUsername()));
     model.addAttribute("appointments", appointmentService.getEmployeeAppointments(appointmentDTO.getEmployeeUsername()));
-    return Page.ADMIN_VIEW_EMPLOYEE.getUrl();
+    return Page.VIEW_EMPLOYEE.getUrl();
   }
 
   @PostMapping("/add-employee")
@@ -208,7 +207,7 @@ public class AdminController {
     if (error) {
       model.addAttribute("userDTO", userDTO);
       model.addAttribute("employeeDTO", employeeDTO);
-      return Page.ADMIN_ADD_EMPLOYEE.getUrl();
+      return Page.ADD_EMPLOYEE.getUrl();
     }
     userService.createUser(userDTO);
     employeeDTO.setUsername(userDTO.getUsername());
@@ -217,7 +216,7 @@ public class AdminController {
     model.addAttribute("addEmployeeSuccess", true);
     model.addAttribute("userDTO", new UserDTO());
     model.addAttribute("employeeDTO", new EmployeeDTO());
-    return Page.ADMIN_ADD_EMPLOYEE.getUrl();
+    return Page.ADD_EMPLOYEE.getUrl();
   }
 
   @PostMapping("/add-patient")
@@ -263,7 +262,7 @@ public class AdminController {
     if (error) {
       model.addAttribute("userDTO", userDTO);
       model.addAttribute("patientDTO", patientDTO);
-      return Page.ADMIN_ADD_PATIENT.getUrl();
+      return Page.ADD_PATIENT.getUrl();
     }
     userService.createUser(userDTO);
     patientDTO.setUsername(userDTO.getUsername());
@@ -273,7 +272,7 @@ public class AdminController {
     // reset form
     model.addAttribute("userDTO", new UserDTO());
     model.addAttribute("patientDTO", new PatientDTO());
-    return Page.ADMIN_ADD_PATIENT.getUrl();
+    return Page.ADD_PATIENT.getUrl();
   }
 
   @PostMapping("/add-appointment")
@@ -300,7 +299,7 @@ public class AdminController {
       model.addAttribute("appointmentDTO", appointmentDTO);
       model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
       model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
-      return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+      return Page.ADD_APPOINTMENT.getUrl();
     }
     appointmentService.createAppointment(appointmentDTO);
 
@@ -309,7 +308,7 @@ public class AdminController {
     model.addAttribute("appointmentDTO", new AppointmentDTO());
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
-    return Page.ADMIN_ADD_APPOINTMENT.getUrl();
+    return Page.ADD_APPOINTMENT.getUrl();
   }
 
   @PostMapping("/deleteEmployee/{employeeUsername}")

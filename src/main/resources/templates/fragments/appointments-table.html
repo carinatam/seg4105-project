@@ -21,11 +21,17 @@
             <td th:text="${appointment.appointmentStatus}"></td>
             <td th:text="${appointment.employeeUsername}"></td>
             <td th:text="${appointment.patientUsername}"></td>
-            <td>
+            <td sec:authorize="hasAuthority('ADMIN')">
               <a th:href="@{/admin/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary btn-sm">View</a>
               <a class="btn btn-primary btn-sm" th:href="@{/admin/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}">Edit</a>
               <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${appointment.appointmentID}').submit()|">Delete</a>
               <form th:id="${appointment.appointmentID}" th:action="@{|/admin/deleteAppointment/${appointment.appointmentID}|}" method="POST"></form>
+            </td>
+            <td sec:authorize="hasAuthority('RECEPTIONIST')">
+              <a th:href="@{/receptionist/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary btn-sm">View</a>
+              <a class="btn btn-primary btn-sm" th:href="@{/receptionist/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}">Edit</a>
+              <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${appointment.appointmentID}').submit()|">Delete</a>
+              <form th:id="${appointment.appointmentID}" th:action="@{|/receptionist/deleteAppointment/${appointment.appointmentID}|}" method="POST"></form>
             </td>
           </tr>
         </tbody>

@@ -11,7 +11,7 @@
           <th scope="col">Address</th>
           <th scope="col">Phone</th>
           <th scope="col">Email</th>
-          <th scope="col">Salary</th>
+          <th sec:authorize="hasAuthority('ADMIN')" scope="col">Salary</th>
           <th scope="col">Role</th>
           <th scope="col">Actions</th>
         </tr>
@@ -26,12 +26,17 @@
           <td th:text="${employee.address}"></td>
           <td th:text="${employee.phone}"></td>
           <td th:text="${employee.email}"></td>
-          <td th:text="${#numbers.formatCurrency(employee.salary)}"></td>
+          <td sec:authorize="hasAuthority('ADMIN')" th:text="${#numbers.formatCurrency(employee.salary)}"></td>
           <td th:text="${employee.role}"></td>
-          <td>
+          <td sec:authorize="hasAuthority('ADMIN')">
             <a class="btn btn-primary btn-sm" th:href="@{|/admin/viewEmployee/${employee.username}|}">View</a>
             <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${employee.username}').submit()|">Delete</a>
             <form th:id="${employee.username}" th:action="@{|/admin/deleteEmployee/${employee.username}|}" method="POST"></form>
+          </td>
+          <td sec:authorize="hasAuthority('RECEPTIONIST')">
+            <a class="btn btn-primary btn-sm" th:href="@{|/receptionist/viewEmployee/${employee.username}|}">View</a>
+            <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${employee.username}').submit()|">Delete</a>
+            <form th:id="${employee.username}" th:action="@{|/receptionist/deleteEmployee/${employee.username}|}" method="POST"></form>
           </td>
         </tr>
       </tbody>
