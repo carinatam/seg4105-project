@@ -66,5 +66,13 @@ public class AppointmentService {
   public List<PaymentDTO> getPayments(int appointmentID) {
     return PaymentMapper.INSTANCE.toDto(paymentRepository.findAllByAppointmentId(appointmentID));
   }
+
+  public List<AppointmentDTO> getDoctorsAppointments(String doctorUsername) {
+    return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findAllByDoctorUsername(doctorUsername));
+  }
+
+  public void addPrescription(PrescriptionDTO prescription) {
+    prescriptionRepository.save(PrescriptionMapper.INSTANCE.toEntity(prescription));
+  }
   
 }

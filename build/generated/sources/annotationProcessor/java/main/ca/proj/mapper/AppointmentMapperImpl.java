@@ -11,13 +11,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-<<<<<<< HEAD
-    date = "2022-11-30T10:27:01-0500",
-    comments = "version: 1.4.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 18.0.2 (Oracle Corporation)"
-=======
-    date = "2022-11-29T15:54:21-0500",
+    date = "2022-12-01T08:21:05-0500",
     comments = "version: 1.4.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.12 (Oracle Corporation)"
->>>>>>> ff25345798fc0e2c61666d215b37ba6774616e65
 )
 public class AppointmentMapperImpl implements AppointmentMapper {
 
