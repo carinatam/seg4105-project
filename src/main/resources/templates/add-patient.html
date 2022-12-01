@@ -89,7 +89,6 @@
             <strong>Error!</strong> [[${nullEmail}]]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          <!-- thymeleaf form to create patient with fields: username, password, first name, last name, gender, dateofbirth, address, phone, email -->
           <form sec:authorize="hasAuthority('ADMIN')" method="post" th:action="@{/admin/add-patient}">
             <div class="form-group">
               <label for="username">Username</label>

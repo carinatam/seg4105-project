@@ -163,7 +163,6 @@ public class ReceptionistController {
     appointmentService.createAppointment(appointmentDTO);
 
     model.addAttribute("addAppointmentSuccess", true);
-    // reset form
     model.addAttribute("appointmentDTO", new AppointmentDTO());
     model.addAttribute("employeeUsernames", employeeService.getAllDoctorsUsernames());
     model.addAttribute("patientUsernames", patientService.getAllPatientsUsernames());
@@ -279,7 +278,6 @@ public class ReceptionistController {
     patientService.createPatient(patientDTO);
 
     model.addAttribute("addPatientSuccess", true);
-    // reset form
     model.addAttribute("userDTO", new UserDTO());
     model.addAttribute("patientDTO", new PatientDTO());
     return Page.ADD_PATIENT.getUrl();

@@ -26,7 +26,6 @@
               <h5 class="card-title">Patient Details</h5>
             </div>
             <div class="card-body">
-              <!-- fields: username, first name, last name, gender, date of birth, address, phone, email -->
               <div class="row">
                 <div class="col-4">
                   <p class="card-text">Username:</p>
@@ -116,7 +115,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- loop through appointments -->
                   <tr th:each="appointment : ${appointments}">
                     <td th:text="${appointment.appointmentID}"></th>
                     <td th:text="${appointment.employeeUsername}"></td>

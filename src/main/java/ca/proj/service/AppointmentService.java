@@ -54,7 +54,6 @@ public class AppointmentService {
     return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findById(appointmentId).orElseThrow(() -> new RuntimeException("Appointment not found")));
   }
 
-  // update appointment
   public AppointmentDTO updateAppointment(AppointmentDTO appointment) {
     AppointmentEntity newAppointment = AppointmentMapper.INSTANCE.toEntity(appointment);
     newAppointment.setEmployee(employeeRepository.findById(appointment.getEmployeeUsername()).orElseThrow(() -> new RuntimeException("Employee not found")));

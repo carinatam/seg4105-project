@@ -131,7 +131,6 @@
                 </thead>
                 <tbody>
                   <tr th:each="appointment : ${appointments}">
-                    <!-- appointmentID, appointmentDate, appointmentTime, appointmentStatus, patientUsername -->
                     <th th:text="${appointment.appointmentID}"></th>
                     <td th:text="${appointment.patientUsername}"></td>
                     <td th:text="${appointment.appointmentDate}"></td>

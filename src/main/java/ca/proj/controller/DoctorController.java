@@ -99,7 +99,6 @@ public class DoctorController {
     appointmentService.addPrescription(prescriptionDTO);
 
     model.addAttribute("addPrescriptionSuccess", true);
-    // reset form
     model.addAttribute("prescriptionDTO", new PrescriptionDTO());
     model.addAttribute("appointments", appointmentService.getDoctorsAppointments(userDetails.getUsername()));
     return Page.DOCTOR_ADD_PRESCRIPTION.getUrl();

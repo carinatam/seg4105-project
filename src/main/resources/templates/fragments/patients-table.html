@@ -1,11 +1,9 @@
-<!-- no thymeleaf bootstrap table of patients with pagination -->
 <div th:fragment="patients-table(patients)">
   <div class="container-fluid">
     <div class="col-12">
       <table class="table table-striped">
         <thead>
           <tr>
-            <!-- columns: username, first name, last name, gender, date of birth, address, phone, email -->
             <th scope="col">Username</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
@@ -18,9 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- iterate over patients -->
           <tr th:each="patient : ${patients}">
-            <!-- display patient's data -->
             <td th:text="${patient.username}"></td>
             <td th:text="${patient.firstName}"></td>
             <td th:text="${patient.lastName}"></td>
