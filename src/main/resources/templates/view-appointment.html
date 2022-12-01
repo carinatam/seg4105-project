@@ -9,10 +9,7 @@
   </head>
 
   <body>
-    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
-    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
-    <nav sec:authorize="hasAuthority('DOCTOR')" th:replace="fragments/doctor-navbar :: doctor-navbar"></nav>
-    <nav sec:authorize="hasAuthority('PATIENT')" th:replace="fragments/patient-navbar :: patient-navbar"></nav>
+    <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container-fluid">
       <a class="btn btn-outline-primary" onclick="javascript:window.history.back()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">

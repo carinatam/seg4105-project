@@ -9,8 +9,7 @@
   </head>
 
   <body>
-    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
-    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
+    <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
