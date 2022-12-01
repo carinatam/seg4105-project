@@ -36,3 +36,4 @@ To run, enter `./gradlew bootRun` in terminal and navigate to `localhost:8080`.
   - View personal information
 - Guest
   - Login
+
