@@ -1,0 +1,29 @@
+<div th:fragment="add-appointment-form(appointmentDTO)">
+  <div class="form-group">
+    <label for="employee">Employee Username</label>
+    <select class="form-control" id="employee" th:field="*{employeeUsername}">
+        <option th:each="employee : ${employeeUsernames}" th:value="${employee}" th:text="${employee}" th:selected="${employeeUsername == employee}"></option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="patient">Patient Username</label>
+    <select class="form-control" id="patient" th:field="*{patientUsername}">
+      <option th:each="patient : ${patientUsernames}" th:value="${patient}" th:text="${patient}" th:selected="${patientUsername == patient}"></option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input type="date" class="form-control" id="date" th:field="*{appointmentDate}" />
+  </div>
+  <div class="form-group">
+    <label for="time">Time</label>
+    <input type="time" class="form-control" id="time" th:field="*{appointmentTime}" />
+  </div>
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select class="form-control" id="status" th:field="*{appointmentStatus}">
+      <option th:each="status : ${T(ca.proj.values.AppointmentStatus).values()}" th:value="${status}" th:text="${status}"></option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Appointment</button>
+</div>
