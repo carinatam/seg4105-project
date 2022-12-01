@@ -1,10 +1,11 @@
 package ca.proj.entity;
 
 import java.sql.Date;
-import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,7 @@ import lombok.Data;
 public class PaymentEntity {
   @Id
   @Column(name = "paymentid")
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private int paymentID;
 
   @Column(name = "paymentdate")
@@ -27,7 +29,7 @@ public class PaymentEntity {
   private double paymentAmount;
 
   @Column(name = "paymenttime")
-  private Time paymentTime;
+  private String paymentTime;
 
   @ManyToOne
   @JoinColumn(name = "appointmentid")

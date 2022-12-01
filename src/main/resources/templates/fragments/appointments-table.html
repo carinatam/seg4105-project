@@ -36,6 +36,9 @@
             <td sec:authorize="hasAuthority('DOCTOR')">
               <a th:href="@{/doctor/viewAppointment/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary btn-sm">View</a>
             </td>
+            <td sec:authorize="hasAuthority('PATIENT')">
+              <a th:href="@{/patient/viewAppointment/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary btn-sm">View</a>
+            </td>
           </tr>
         </tbody>
       </table>

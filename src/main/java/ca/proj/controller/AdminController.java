@@ -290,7 +290,7 @@ public class AdminController {
       }
     }
 
-    if (appointmentDTO.getAppointmentTime() == null) {
+    if (appointmentDTO.getAppointmentTime() == "") {
       model.addAttribute("nullTime", "Please select a time.");
       error = true;
     }
