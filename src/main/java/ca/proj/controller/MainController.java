@@ -20,6 +20,11 @@ public class MainController {
     return Page.LOGIN.getUrl();
   }
 
+  @GetMapping("/login")
+  public String getLoginPageRedirect() {
+    return Page.LOGIN.getUrl();
+  }
+
   @RequestMapping("/loginSuccess")
   public void loginPageRedirect(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws ServletException, IOException {
     String role = authResult.getAuthorities().toString();

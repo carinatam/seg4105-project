@@ -13,4 +13,7 @@ public interface IPaymentRepository extends JpaRepository<PaymentEntity, Integer
   
   @Query(value = "SELECT * FROM payment WHERE appointmentid = :id", nativeQuery = true)
   List<PaymentEntity> findAllByAppointmentId(int id);
+
+  @Query(value = "SELECT * FROM payment WHERE patientusername = :username", nativeQuery = true)
+  List<PaymentEntity> findAllByPatientUsername(String username);
 }

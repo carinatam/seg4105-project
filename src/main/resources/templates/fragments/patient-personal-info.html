@@ -1,21 +1,42 @@
-<!-- fragment for patient's personal information -->
-<!-- Path: src\main\resources\templates\fragments\patient-personal-info.html -->
-<div th:fragment="patient-personal-info">
-  <!-- dummy info: id, first name, last name, email, phone, assigned doctor -->
-  <!-- not a table -->
+<div th:fragment="patient-personal-info(patient)">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Personal Information</h5>
-            <p class="card-text"><span class="fw-bold">ID:</span> 1</p>
-            <p class="card-text"><span class="fw-bold">First Name:</span> John</p>
-            <p class="card-text"><span class="fw-bold">Last Name:</span> Doe</p>
-            <p class="card-text"><span class="fw-bold">Email:</span> <a href="mailto:[...]"></a></p>
-            <p class="card-text"><span class="fw-bold">Phone:</span> <a href="tel:[...]"></a></p>
-            <p class="card-text"><span class="fw-bold">Assigned Doctor:</span> <a href="tel:[...]"></a></p>
-            <a href="#" class="btn btn-primary">Edit</a>
+            <p class="card-text">
+              <span class="fw-bold">Username: </span>
+              <span th:text="${patient.username}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">First Name: </span>
+              <span th:text="${patient.firstName}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Last Name: </span>
+              <span th:text="${patient.lastName}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Gender: </span>
+              <span th:text="${patient.gender}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Date of Birth: </span>
+              <span th:text="${patient.dateOfBirth}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Address: </span>
+              <span th:text="${patient.address}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Phone: </span>
+              <span th:text="${patient.phone}"></span>
+            </p>
+            <p class="card-text">
+              <span class="fw-bold">Email: </span>
+              <span th:text="${patient.email}"></span>
+            </p>
           </div>
         </div>
       </div>

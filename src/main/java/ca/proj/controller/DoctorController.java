@@ -63,7 +63,9 @@ public class DoctorController {
   public String addPrescriptionPageAppointment(Model model, @AuthenticationPrincipal CustomUserDetails userDetails, Authentication authResult, @PathVariable int appointmentId) {
     model.addAttribute("appointments", appointmentService.getDoctorsAppointments(userDetails.getUsername()));
     model.addAttribute("id", appointmentId);
-    model.addAttribute("prescriptionDTO", new PrescriptionDTO());
+    PrescriptionDTO prescriptionDTO = new PrescriptionDTO();
+    prescriptionDTO.setAppointmentID(appointmentId);
+    model.addAttribute("prescriptionDTO", prescriptionDTO);
     return Page.DOCTOR_ADD_PRESCRIPTION.getUrl();
   }
 
