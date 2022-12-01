@@ -12,6 +12,7 @@
     <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
     <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
     <nav sec:authorize="hasAuthority('DOCTOR')" th:replace="fragments/doctor-navbar :: doctor-navbar"></nav>
+    <nav sec:authorize="hasAuthority('PATIENT')" th:replace="fragments/patient-navbar :: patient-navbar"></nav>
     <div class="container-fluid">
       <a class="btn btn-outline-primary" onclick="javascript:window.history.back()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -33,6 +34,12 @@
         Back
       </a>
       <a class="btn btn-outline-primary" sec:authorize="hasAuthority('DOCTOR')" th:href="@{/doctor/}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+      </a>
+      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('PATIENT')" th:href="@{/patient/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
         </svg>
@@ -85,7 +92,7 @@
                 <div class="col-8">
                   <a sec:authorize="hasAuthority('ADMIN')" class="card-link" th:href="@{/admin/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
                   <a sec:authorize="hasAuthority('RECEPTIONIST')" class="card-link" th:href="@{/receptionist/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
-                  <p sec:authorize="hasAuthority('DOCTOR')" class="card-text" th:text="${appointment.employeeUsername}"></p>
+                  <p sec:authorize="hasAuthority('DOCTOR') || hasAuthority('PATIENT')" class="card-text" th:text="${appointment.employeeUsername}"></p>
                 </div>
               </div>
               <div class="row">
@@ -96,6 +103,7 @@
                   <a sec:authorize="hasAuthority('ADMIN')" class="card-link" th:href="@{/admin/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
                   <a sec:authorize="hasAuthority('RECEPTIONIST')" class="card-link" th:href="@{/receptionist/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
                   <a sec:authorize="hasAuthority('DOCTOR')" class="card-link" th:href="@{/doctor/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
+                  <p sec:authorize="hasAuthority('PATIENT')" class="card-text" th:text="${appointment.patientUsername}"></p>
                 </div>
               </div>
             </div>
@@ -128,6 +136,9 @@
               </table>
               <p th:if="${prescriptions.empty}">No associated prescriptions.</p>
             </div>
+          </div>
+          <div class="d-grid gap-2">
+            <a sec:authorize="hasAuthority('PATIENT')" th:href="@{/patient/make-payment-page-appointment/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary">Make Payment</a>
           </div>
           <div class="card">
             <div class="card-header">

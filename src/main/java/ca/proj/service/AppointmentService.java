@@ -46,6 +46,10 @@ public class AppointmentService {
     return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findAllByPatientUsername(patientUsername));
   }
 
+  public List<Integer> getPatientAppointmentIDs(String patientUsername) {
+    return appointmentRepository.findAllIdsByPatientUsername(patientUsername);
+  }
+
   public AppointmentDTO getAppointment(int appointmentId) {
     return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findById(appointmentId).orElseThrow(() -> new RuntimeException("Appointment not found")));
   }
@@ -67,12 +71,20 @@ public class AppointmentService {
     return PaymentMapper.INSTANCE.toDto(paymentRepository.findAllByAppointmentId(appointmentID));
   }
 
+  public List<PaymentDTO> getPatientPayments(String patientUsername) {
+    return PaymentMapper.INSTANCE.toDto(paymentRepository.findAllByPatientUsername(patientUsername));
+  }
+
   public List<AppointmentDTO> getDoctorsAppointments(String doctorUsername) {
     return AppointmentMapper.INSTANCE.toDto(appointmentRepository.findAllByDoctorUsername(doctorUsername));
   }
 
   public void addPrescription(PrescriptionDTO prescription) {
     prescriptionRepository.save(PrescriptionMapper.INSTANCE.toEntity(prescription));
+  }
+
+  public void addPayment(PaymentDTO payment) {
+    paymentRepository.save(PaymentMapper.INSTANCE.toEntity(payment));
   }
   
 }
