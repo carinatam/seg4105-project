@@ -39,6 +39,9 @@
               <a class="btn btn-danger btn-sm" href="#" th:attr="onclick=|document.getElementById('${patient.username}').submit()|">Delete</a>
               <form th:id="${patient.username}" th:action="@{|/receptionist/deletePatient/${patient.username}|}" method="POST"></form>
             </td>
+            <td sec:authorize="hasAuthority('DOCTOR')">
+              <a class="btn btn-primary btn-sm" th:href="@{|/doctor/viewPatient/${patient.username}|}">View</a>
+            </td>
           </tr>
         </tbody>
       </table>

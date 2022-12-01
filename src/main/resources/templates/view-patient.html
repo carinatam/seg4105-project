@@ -11,6 +11,7 @@
   <body>
     <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
     <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
+    <nav sec:authorize="hasAuthority('DOCTOR')" th:replace="fragments/doctor-navbar :: doctor-navbar"></nav>
     <div class="container-fluid">
       <a class="btn btn-outline-primary" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -19,6 +20,12 @@
         Back
       </a>
       <a class="btn btn-outline-primary" sec:authorize="hasAuthority('RECEPTIONIST')" th:href="@{/receptionist/}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+      </a>
+      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('DOCTOR')" th:href="@{/doctor/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
         </svg>
@@ -136,6 +143,9 @@
                     <td sec:authorize="hasAuthority('RECEPTIONIST')">
                       <a class="btn btn-sm btn-outline-primary" th:href="@{/receptionist/appointments/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
                       <a class="btn btn-sm btn-outline-primary" th:href="@{/receptionist/edit-appointment-page/{appointmentID}(appointmentID=${appointment.appointmentID})}"> Edit </a>
+                    </td>
+                    <td sec:authorize="hasAuthority('DOCTOR')">
+                      <a class="btn btn-sm btn-outline-primary" th:href="@{/doctor/viewAppointment/{appointmentID}(appointmentID=${appointment.appointmentID})}"> View </a>
                     </td>
                   </tr>
                 </tbody>

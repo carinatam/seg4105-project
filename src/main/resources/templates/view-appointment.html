@@ -11,7 +11,7 @@
   <body>
     <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
     <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
-    <!-- view appointment details: appointment id, appointment date, appointment time, appointment status, employee, patient, table of prescriptions, table of payments -->
+    <nav sec:authorize="hasAuthority('DOCTOR')" th:replace="fragments/doctor-navbar :: doctor-navbar"></nav>
     <div class="container-fluid">
       <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-outline-primary" th:href="@{/admin/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -22,6 +22,12 @@
       <a sec:authorize="hasAuthority('RECEPTIONIST')" class="btn btn-outline-primary" th:href="@{/receptionist/}">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
+        </svg>
+        Back
+      </a>
+      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('DOCTOR')" th:href="@{/doctor/}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
         </svg>
         Back
       </a>
@@ -71,6 +77,7 @@
                 <div class="col-8">
                   <a sec:authorize="hasAuthority('ADMIN')" class="card-link" th:href="@{/admin/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
                   <a sec:authorize="hasAuthority('RECEPTIONIST')" class="card-link" th:href="@{/receptionist/viewEmployee/{username}(username=${appointment.employeeUsername})}" th:text="${appointment.employeeUsername}"></a>
+                  <p sec:authorize="hasAuthority('DOCTOR')" class="card-text" th:text="${appointment.employeeUsername}"></p>
                 </div>
               </div>
               <div class="row">
@@ -80,57 +87,69 @@
                 <div class="col-8">
                   <a sec:authorize="hasAuthority('ADMIN')" class="card-link" th:href="@{/admin/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
                   <a sec:authorize="hasAuthority('RECEPTIONIST')" class="card-link" th:href="@{/receptionist/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
+                  <a sec:authorize="hasAuthority('DOCTOR')" class="card-link" th:href="@{/doctor/viewPatient/{username}(username=${appointment.patientUsername})}" th:text="${appointment.patientUsername}"></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- format details like in admin-view-employee -->
         <div class="col-6">
-          <h2>Prescriptions</h2>
-          <table class="table table-striped" th:if="${!prescriptions.empty}">
-            <thead>
-              <tr>
-                <!-- columns: prescription id, prescription date, prescription time, prescription status, prescription details, prescription notes -->
-                <th scope="col">Prescription ID</th>
-                <th scope="col">Prescription Date</th>
-                <th scope="col">Prescription Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- iterate over prescriptions -->
-              <tr th:each="prescription : ${prescriptions}">
-                <!-- display prescription's data -->
-                <td th:text="${prescription.prescriptionID}"></td>
-                <td th:text="${prescription.prescriptionDate}"></td>
-                <td th:text="${prescription.prescription}"></td>
-              </tr>
-            </tbody>
-          </table>
-          <p th:if="${prescriptions.empty}">No associated prescriptions.</p>
-          <h2>Payments</h2>
-          <table class="table table-striped" th:if="${!payments.empty}">
-            <thead>
-              <tr>
-                <!-- columns: payment id, payment date, payment time, payment status, payment amount, payment method -->
-                <th scope="col">Payment ID</th>
-                <th scope="col">Payment Date</th>
-                <th scope="col">Payment Time</th>
-                <th scope="col">Payment Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- iterate over payments -->
-              <tr th:each="payment : ${payments}">
-                <!-- display payment's data -->
-                <td th:text="${payment.paymentID}"></td>
-                <td th:text="${payment.paymentDate}"></td>
-                <td th:text="${payment.paymentTime}"></td>
-                <td th:text="${#numbers.formatCurrency(payment.paymentAmount)}"></td>
-              </tr>
-            </tbody>
-          </table>
-          <p th:if="${payments.empty}">No associated payments.</p>
+          <div class="d-grid gap-2">
+            <a sec:authorize="hasAuthority('DOCTOR')" th:if="${doctorusername == appointment.employeeUsername}" th:href="@{/doctor/add-prescription-page-appointment/{appointmentID}(appointmentID=${appointment.appointmentID})}" class="btn btn-primary">Add Prescription</a>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Prescription</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped" th:if="${!prescriptions.empty}">
+                <thead>
+                  <tr>
+                    <th scope="col">Prescription ID</th>
+                    <th scope="col">Prescription Date</th>
+                    <th scope="col">Prescription Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="prescription : ${prescriptions}">
+                    <td th:text="${prescription.prescriptionID}"></td>
+                    <td th:text="${prescription.prescriptionDate}"></td>
+                    <td th:text="${prescription.prescription}"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p th:if="${prescriptions.empty}">No associated prescriptions.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Payments</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped" th:if="${!payments.empty}">
+                <thead>
+                  <tr>
+                    <!-- columns: payment id, payment date, payment time, payment status, payment amount, payment method -->
+                    <th scope="col">Payment ID</th>
+                    <th scope="col">Payment Date</th>
+                    <th scope="col">Payment Time</th>
+                    <th scope="col">Payment Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- iterate over payments -->
+                  <tr th:each="payment : ${payments}">
+                    <!-- display payment's data -->
+                    <td th:text="${payment.paymentID}"></td>
+                    <td th:text="${payment.paymentDate}"></td>
+                    <td th:text="${payment.paymentTime}"></td>
+                    <td th:text="${#numbers.formatCurrency(payment.paymentAmount)}"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p th:if="${payments.empty}">No associated payments.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

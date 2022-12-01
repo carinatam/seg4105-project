@@ -17,5 +17,11 @@ public interface IAppointmentRepository extends JpaRepository<AppointmentEntity,
 
   @Query(value = "SELECT * FROM appointment WHERE patientusername = :username", nativeQuery = true)
   List<AppointmentEntity> findAllByPatientUsername(@Param("username") String username);
+
+  @Query(value = "SELECT patientusername FROM appointment WHERE employeeusername = :username", nativeQuery = true)
+  List<String> findPatientsByDoctorUsername(@Param("username") String username);
+
+  @Query(value = "SELECT * FROM appointment WHERE employeeusername = :username", nativeQuery = true)
+  List<AppointmentEntity> findAllByDoctorUsername(@Param("username") String username);
   
 }
