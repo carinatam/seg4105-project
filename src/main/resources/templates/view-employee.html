@@ -9,8 +9,7 @@
   </head>
 
   <body>
-    <nav sec:authorize="hasAuthority('ADMIN')" th:replace="fragments/admin-navbar :: admin-navbar"></nav>
-    <nav sec:authorize="hasAuthority('RECEPTIONIST')" th:replace="fragments/receptionist-navbar :: receptionist-navbar"></nav>
+    <div th:replace="fragments/navbar :: navbar"></div>
     <div class="container-fluid">
       <a class="btn btn-outline-primary" onclick="javascript:window.history.back()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -18,21 +17,6 @@
         </svg>
         Back
       </a>
-      <!-- back button with icon to admin dashboard -->
-      <!--
-      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
-        </svg>
-        Back
-      </a>
-      <a class="btn btn-outline-primary" sec:authorize="hasAuthority('RECEPTIONIST')" th:href="@{/receptionist/}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M11.854 1.646a.5.5 0 0 1 0 .708L5.207 8.5l6.647 6.646a.5.5 0 0 1-.708.708l-7-7a.5.5 0 0 1 0-.708l7-7a.5.5 0 0 1 .708 0z" />
-        </svg>
-        Back
-      </a>
-      -->
       <div class="row">
         <div class="col-6">
           <div class="card">
@@ -146,7 +130,6 @@
                 </thead>
                 <tbody>
                   <tr th:each="appointment : ${appointments}">
-                    <!-- appointmentID, appointmentDate, appointmentTime, appointmentStatus, patientUsername -->
                     <th th:text="${appointment.appointmentID}"></th>
                     <td th:text="${appointment.patientUsername}"></td>
                     <td th:text="${appointment.appointmentDate}"></td>

@@ -24,7 +24,6 @@ public class LoginUserService {
       LoginUserDTO loginUser = new LoginUserDTO();
       loginUser.setUsername(username);
       loginUser.setPassword(userRepository.getPassword(username));
-      // check if is patient
       if(patientRepository.isPatient(username) == BigInteger.ONE) {
         loginUser.setRole("PATIENT");
         return loginUser; 
