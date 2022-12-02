@@ -1,4 +1,4 @@
-<div th:fragment="add-employee-form(userDTO, employeeDTO)">
+<div th:fragment="add-employee-form(userDTO, employeeDTO, role)">
   <div class="form-group">
     <label for="username">Username</label>
     <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"  th:field="*{userDTO.username}" />
@@ -46,7 +46,8 @@
   <div class="form-group">
     <label for="role">Role</label>
     <select class="form-control" id="role" th:field="*{employeeDTO.role}">
-      <option th:each="role : ${T(ca.proj.values.EmployeeRole).values()}" th:value="${role}" th:text="${role}"></option>
+      <option sec:authorize="hasAuthority('ADMIN')" th:each="role : ${T(ca.proj.values.EmployeeRole).values()}" th:value="${role}" th:text="${role}"></option>
+      <option sec:authorize="hasAuthority('RECEPTIONIST')" th:each="role : ${T(ca.proj.values.EmployeeRole).values()}" th:if="${role != T(ca.proj.values.EmployeeRole).Admin}" th:value="${role}" th:text="${role}"></option>
     </select>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

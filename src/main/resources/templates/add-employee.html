@@ -96,10 +96,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
           <form sec:authorize="hasAuthority('ADMIN')" method="post" th:action="@{/admin/add-employee}">
-            <div th:replace="fragments/add-employee-form :: add-employee-form(userDTO, employeeDTO)"></div>
+            <div th:replace="fragments/add-employee-form :: add-employee-form(userDTO, employeeDTO, role)"></div>
           </form>
           <form sec:authorize="hasAuthority('RECEPTIONIST')" method="post" th:action="@{/receptionist/add-employee}">
-            <div th:replace="fragments/add-employee-form :: add-employee-form(userDTO, employeeDTO)"></div>
+            <div th:replace="fragments/add-employee-form :: add-employee-form(userDTO, employeeDTO, role)"></div>
           </form>
         </div>
       </div>
