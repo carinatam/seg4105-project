@@ -149,7 +149,7 @@ public class ReceptionistController {
       }
     }
 
-    if (appointmentDTO.getAppointmentTime() == "") {
+    if (appointmentDTO.getAppointmentTime().equals("")) {
       model.addAttribute("nullTime", "Please select a time.");
       error = true;
     }

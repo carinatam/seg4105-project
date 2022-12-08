@@ -135,7 +135,7 @@ public class PatientController {
         error = true;
       }
     }
-    if(appointment.getAppointmentTime() == "") {
+    if(appointment.getAppointmentTime().equals("")) {
       model.addAttribute("nullTime", "Please select a time.");
       error = true;
     }

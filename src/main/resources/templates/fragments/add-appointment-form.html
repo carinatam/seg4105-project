@@ -5,7 +5,7 @@
         <option th:each="employee : ${employeeUsernames}" th:value="${employee}" th:text="${employee}" th:selected="${employeeUsername == employee}"></option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group" sec:authorize="!hasAuthority('PATIENT')">
     <label for="patient">Patient Username</label>
     <select class="form-control" id="patient" th:field="*{patientUsername}">
       <option th:each="patient : ${patientUsernames}" th:value="${patient}" th:text="${patient}" th:selected="${patientUsername == patient}"></option>
@@ -19,7 +19,7 @@
     <label for="time">Time</label>
     <input type="time" class="form-control" id="time" th:field="*{appointmentTime}" />
   </div>
-  <div class="form-group">
+  <div class="form-group" sec:authorize="!hasAuthority('PATIENT')">
     <label for="status">Status</label>
     <select class="form-control" id="status" th:field="*{appointmentStatus}">
       <option th:each="status : ${T(ca.proj.values.AppointmentStatus).values()}" th:value="${status}" th:text="${status}"></option>
